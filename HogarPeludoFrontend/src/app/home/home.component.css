@@ -1,0 +1,36 @@
+
+
+h3 {
+    margin: 0; /* Elimina el margen superior e inferior del h3 */
+    font-size: 1.8rem;
+}
+
+p {
+    margin-top: 15px;
+}
+
+.text-box {
+    background-color: #088fbb; 
+    color: #fff; /* Texto blanco */
+    padding: 20px;
+    height: 65%;
+    border-radius: 10px;
+}
+
+.text-box p {
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .col-md-6 {
+        margin-bottom: 20px;
+    }
+}
+
+.divQsomos{
+    display: flex;
+}

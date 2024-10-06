@@ -1,0 +1,16 @@
+.header-container {
+     background-color: rgb(40, 124, 192);
+     height: 90px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 0 10%; /* Espacio a los lados */
+}
+.hover-btn {
+     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-btn:hover {
+     transform: scale(1.05);
+     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
