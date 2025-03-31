@@ -1,5 +1,6 @@
 import Sequelize  from "sequelize";
 import {db} from "../database/conexion.js";
+import { refugios } from "./refugioModelo.js";
 
 
 const mascotas = db.define("mascotas",{
@@ -38,6 +39,15 @@ const mascotas = db.define("mascotas",{
           type:Sequelize.STRING,
           allowNull:true,
           defaultValue:"no"
+     },
+     id_refugio:{
+          type:Sequelize.INTEGER,
+          allowNul: false,
+          references: {
+               model: refugios, // Nombre del modelo que referencia
+               key: 'id'       // Clave primaria en el modelo "refugio"
+          }
+
      }
 
 })

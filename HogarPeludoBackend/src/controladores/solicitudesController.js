@@ -3,24 +3,19 @@ import { solicitud } from "../modelos/solicitudModelo.js";
 //para crear una solicitud
 const crearSolicitud = (req,res)=>{
      // Verificar si se proporcionaron los datos indispensables
-     if(!req.params.id_mascota){
-          res.status(500).json({mensaje: `El id de la solicitud no puede estar vacio`})
+     if(!req.params.id_mascota && !req.params.id_solicitante){
+          res.status(500).json({mensaje: `El id de la solicitud y el id de solicitante no puede estar vacio`})
           return;
      }
 
-     if(!req.body.nombre_solicitante && !req.body.telefono  && req.body.identificacion){
-          res.status(400).send({ mensaje: "El nombre del solicitante, identificación o su teléfono son indispensables, no pueden estar vacios."});
-          return;
-     }
+
 
      const dataset={
           id_mascota: req.params.id_mascota,
-          nombre_solicitante: req.body.nombre_solicitante,
-          identificacion: req.body.identificacion,
-          telefono: req.body.telefono,
-          direccion: req.body.direccion,
-          fecha: req.body.fecha,
-          estado: req.body.estado
+          id_solicitante: req.body.id_solicitante,
+          fecha_solicitud: req.body.fecha_solicitud,
+          estado: req.body.estado,
+          fecha_aprobacion: req.body.fecha_aprobacion,
      }
 
      //Usuar Sequelize para crear el recurso en la base de datos
@@ -69,7 +64,7 @@ const buscarSolicitudId = (req,res)=>{
 const actualizarSolicitud = (req,res)=>{
      const id=req.params.id;
      // Verificar si se proporcionaron los datos para actualizar
-     if(!req.body.nombre_solicitante && !req.body.id_mascota){
+     if( !req.body.id_solicitante){
           res.status(400).json({
                mensaje: "No se encontraron Datos para Actualizar"
           });
@@ -79,14 +74,12 @@ const actualizarSolicitud = (req,res)=>{
      else{
 
           const id_mascota = req.body.id_mascota
-          const nombre_solicitante = req.body.nombre_solicitante    
-          const identificacion = req.body.identificacion
-          const telefono = req.body.telefono
-          const direccion = req.body.direccion
-          const fecha = req.body.fecha
+          const id_solicitante = req.body.id_solicitante
+          const fecha_solicitud = req.body.fecha_solicitud
           const estado = req.body.estado
+          const fecha_aprobacion = req.body.fecha_aprobacion
           //usar sequalize parac actualizar los datos
-          solicitud.update({id_mascota,nombre_solicitante,identificacion,telefono,direccion,fecha,estado},{where:{id_solicitud:id}}).then((resultado)=>{
+          solicitud.update({id_mascota,id_solicitante,fecha_solicitud,estado, fecha_aprobacion},{where:{id_adopcion:id}}).then((resultado)=>{
                res.status(200).json({
                     tipo: 'success',
                     mensaje: "Registro Actualizado"
@@ -112,7 +105,7 @@ const eliminarSolicitud = (req,res)=>{
      }
 
 //  eliminar el registro de la base de datos, utilizando sequalize
-     solicitud.destroy({ where: { id_solicitud: id } })
+     solicitud.destroy({ where: { id_adopcion: id } })
           .then((result) => {
                if (result === 0) {
                     return res.status(404).json({

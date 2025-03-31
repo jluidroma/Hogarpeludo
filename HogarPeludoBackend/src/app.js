@@ -1,6 +1,7 @@
 import express from "express";
 import { routerMascotas } from "./rutas/mascotasRouter.js";
 import { routerSolicitud } from "./rutas/SolicitudesRouter.js";
+import { routerUsuarios } from "./rutas/usuariosRouter.js";
 import {db} from "./database/conexion.js";
 import cors from "cors";
 //Crear instancia de Express
@@ -20,14 +21,15 @@ db.authenticate().then(()=>{
 
 
 //Definir Rutas
-//esto es un call back con un aarray function el req es lo que me llega del cliente y9 el res es lo que se envia desde el servidor al cliente
+//esto es un call back con un array function el req es lo que me llega del cliente y9 el res es lo que se envia desde el servidor al cliente
 app.get('/', (req, res) => {
     res.send('Hola Sitio Principal');
 });
 
 //Llamar rutas de mascotas utlizando el midelware
 app.use("/mascotas",routerMascotas);
-app.use("/solicitud",routerSolicitud)
+app.use("/solicitud",routerSolicitud);
+app.use("/usuarios",routerUsuarios);
 
 //Puerto de Servidor
 const PORT=3000;

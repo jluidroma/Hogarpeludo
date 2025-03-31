@@ -1,9 +1,10 @@
 import  Sequelize  from "sequelize"
 import {mascotas} from "./mascotaModelo.js"
+import { usuarios } from "./usuarioModelo.js"
 import {db} from "../database/conexion.js"
 
 const solicitud = db.define("solicitud",{
-     id_solicitud:{
+     id_adopcion:{
           type:Sequelize.INTEGER,
           allowNul: false,
           autoIncrement: true,
@@ -18,29 +19,26 @@ const solicitud = db.define("solicitud",{
           }
 
      },
-     nombre_solicitante:{
-          type:Sequelize.STRING,
-          allowNull: false,
+     id_solicitante:{
+          type:Sequelize.INTEGER,
+          allowNul: false,
+          references: {
+               model: usuarios, // Nombre del modelo que referencia
+               key: 'id'       // Clave primaria en el modelo "usuario"
+          }
+
      },
-     identificacion:{
-          type:Sequelize.STRING,
-          allowNull: false
-     },
-     telefono:{
-          type:Sequelize.BIGINT(10),
-          allowNull: false,
-     },
-     direccion:{
-          type:Sequelize.STRING,
-          allowNull:true,
-     },
-     fecha:{
+     fecha_solicitud:{
           type:Sequelize.DATE,
           allowNull:true
-
      },
      estado:{
           type:Sequelize.STRING,
+          defaultValue:"pendiente"
+     },
+     fecha_aprobacion:{
+          type:Sequelize.DATE,
+          allowNull:true
      }
 })
 

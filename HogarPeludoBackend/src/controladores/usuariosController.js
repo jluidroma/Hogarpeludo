@@ -1,48 +1,54 @@
-import { mascotas } from "../modelos/mascotaModelo.js";
+import { usuarios } from "../modelos/usuarioModelo.js";
 
-//Crear un recurso Mascota
+//Crear un recurso usuario
 const crear = (req,res)=>{
 
     //Validar 
      if(!req.body.nombre){
-          res.status(400).send({ mensaje: "El nombre no puede estar vacio."});
+          res.status(400).send({ mensaje: "El nombre no puede estar vacío."});
           return;
      }
-     if (!req.body.sexo) {
-          return res.status(400).send({ mensaje: "El sexo no puede estar vacío." });
+     if (!req.body.apellido) {
+          return res.status(400).send({ mensaje: "El campo apellido no puede estar vacío." });
      }    
-     if (!req.body.raza) {
-          return res.status(400).send({ mensaje: "La raza no puede estar vacía." });
+     if (!req.body.email) {
+          return res.status(400).send({ mensaje: "El campo email no puede estar vacío." });
      }
-     if (!req.body.id_refugio) {
-          return res.status(400).send({ mensaje: "El id de refugio no puede estar vacía." });
+     if(!req.body.contrasena){
+          res.status(400).send({ mensaje: "El  campo contraseña no puede estar vacío."});
+          return;
+     }
+     if (!req.body.direccion) {
+          return res.status(400).send({ mensaje: "El campo dirección no puede estar vacío." });
+     }    
+     if (!req.body.rol) {
+          return res.status(400).send({ mensaje: "El campo rol no puede estar vacío." });
      }
      const dataset={
           nombre: req.body.nombre,
-          sexo: req.body.sexo,
-          raza: req.body.raza,
-          edad: req.body.edad,
-          talla: req.body.talla,
-          imagenUrl: req.body.imagenUrl,
-          estado_adopcion: req.body.estado_adopcion,
-          id_refugio: req.body.id_refugio
+          apellido: req.body.apellido,
+          email: req.body.email,
+          contrasena: req.body.contrasena,
+          telefono: req.body.direccion,
+          direccion: req.body.direccion,
+          rol: req.body.rol
      }
 
 //Usuar Sequelize para crear el recurso en la base de datos
-     mascotas.create(dataset).then((resultado)=>{
+     usuarios.create(dataset).then((resultado)=>{
           res.status(200).json({
-               mensaje: "Registro de Mascota Creado con Exito"
+               mensaje: "Registro de usuario Creado con Exito"
           });
      }).catch((err)=>{
           res.status(500).json({
-               mensaje: `Registro de Mascota No creado ::: ${err}`
+               mensaje: `Registro de usuario No creado ::: ${err}`
           });
      });
 }
 
-//Buscar Mascotas
+//Buscar Usuarios 
 const buscar= (req,res)=>{
-mascotas.findAll().then((resultado)=>{
+usuarios.findAll().then((resultado)=>{
      res.status(200).json(resultado);
 }).catch((err)=>{
      res.status(500).json({
@@ -63,7 +69,7 @@ if(id==null){
      return;
 }
 else{
-     mascotas.findByPk(id).then((resultado)=>{
+     usuarios.findByPk(id).then((resultado)=>{
           res.status(200).json(resultado);
      }).catch((err)=>{
           res.status(500).json({
@@ -77,10 +83,10 @@ else{
 
 
 
-//Actualizar Mascota
+//Actualizar usuario
 const actualizar=(req,res)=>{
 const id=req.params.id;
-if(!req.body.nombre && !req.body.nombre){
+if(!req.body.nombre){
      res.status(400).json({
           mensaje: "No se encontraron Datos para Actualizar"
      });
@@ -89,14 +95,13 @@ if(!req.body.nombre && !req.body.nombre){
 }
 else{
      const nombre= req.body.nombre
-     const sexo= req.body.sexo;
-     const raza= req.body.raza;
-     const edad= req.body.edad;
-     const talla= req.body.talla;
-     const imagenUrl= req.body.imagenUrl;
-     const estado_adopcion= req.body.estado_adopcion
-     const id_refugio = req.body.id_refugio
-     mascotas.update({nombre,sexo,raza,edad,talla,imagenUrl,estado_adopcion,id_refugio},{where:{id}}).then((resultado)=>{
+     const apellido= req.body.apellido;
+     const email= req.body.email;
+     const contrasena= req.body.contrasena;
+     const telefono= req.body.telefono;
+     const direccion= req.body.direccion;
+     const rol= req.body.rol
+     usuarios.update({nombre,apellido,email,contrasena,telefono,direccion,rol},{where:{id}}).then((resultado)=>{
           res.status(200).json({
                tipo: 'success',
                mensaje: "Registro Actualizado"
@@ -114,7 +119,7 @@ else{
 
 }
 
-//Eliminar Mascota
+//Eliminar usuario
 const eliminar = (req, res) => {
      const id = req.params.id;
 
@@ -127,7 +132,7 @@ if (!id) {
 }
 
 // Lógica para eliminar el registro de la base de datos
-mascotas.destroy({ where: { id: id } })
+usuarios.destroy({ where: { id: id } })
      .then((result) => {
           if (result === 0) {
                return res.status(404).json({
