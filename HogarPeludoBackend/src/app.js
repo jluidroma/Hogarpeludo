@@ -2,6 +2,9 @@ import express from "express";
 import { routerMascotas } from "./rutas/mascotasRouter.js";
 import { routerSolicitud } from "./rutas/SolicitudesRouter.js";
 import { routerUsuarios } from "./rutas/usuariosRouter.js";
+import { routerRefugios } from "./rutas/refugiosRouter.js"; 
+import { routerVisitas } from "./rutas/visitasRouter.js";
+import { routerVoluntarios } from "./rutas/voluntariosRouter.js";
 import {db} from "./database/conexion.js";
 import cors from "cors";
 //Crear instancia de Express
@@ -30,6 +33,10 @@ app.get('/', (req, res) => {
 app.use("/mascotas",routerMascotas);
 app.use("/solicitud",routerSolicitud);
 app.use("/usuarios",routerUsuarios);
+app.use("/refugios",routerRefugios);
+app.use("/visitas",routerVisitas);
+app.use("/voluntarios",routerVoluntarios)
+
 
 //Puerto de Servidor
 const PORT=3000;
