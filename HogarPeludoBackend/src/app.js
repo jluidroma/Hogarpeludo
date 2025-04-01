@@ -1,56 +1,82 @@
 import express from "express";
+import { routerUsuarios } from "./rutas/usuariosRouter.js";
 import { routerMascotas } from "./rutas/mascotasRouter.js";
 import { routerSolicitud } from "./rutas/SolicitudesRouter.js";
-import { routerUsuarios } from "./rutas/usuariosRouter.js";
 import { routerRefugios } from "./rutas/refugiosRouter.js"; 
 import { routerVisitas } from "./rutas/visitasRouter.js";
 import { routerVoluntarios } from "./rutas/voluntariosRouter.js";
-import {db} from "./database/conexion.js";
+import { db } from "./database/conexion.js";
 import cors from "cors";
-//Crear instancia de Express
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+
+// Crear instancia de Express
 const app = express();
 
-//Cors
+// Configuración de CORS
 app.use(cors());
-//Middleware JSON
+
+// Middleware para JSON
 app.use(express.json());
 
-//Verificar Conexion Base Datos
-db.authenticate().then(()=>{
-    console.log(`Conexion a Base de datos correcta`);
-}).catch(err=>{
-    console.log(`Conexion a Base de datos incorrecta ${err}`);
-}); 
+// Verificar conexión a la base de datos
+db.authenticate()
+  .then(() => {
+    console.log("Conexión a la base de datos correcta");
+  })
+  .catch((err) => {
+    console.log(`Conexión a la base de datos incorrecta: ${err}`);
+  });
+
+// Configuración de Swagger
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "API de Hogar Peludo",
+      version: "1.0.0",
+      description: "Documentación de la API de gestión de adopciones, refugios y voluntarios",
+    },
+  },
+  apis: [join(__dirname, "rutas/*.js")], // 🔹 Asegura una ruta correcta
+};
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+console.log(JSON.stringify(swaggerDocs, null, 2)); // 👈 Imprime para verificar
 
 
-//Definir Rutas
-//esto es un call back con un array function el req es lo que me llega del cliente y9 el res es lo que se envia desde el servidor al cliente
-app.get('/', (req, res) => {
-    res.send('Hola Sitio Principal');
+// **Registra Swagger antes de las rutas**
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// Definir rutas
+app.get("/", (req, res) => {
+  res.send("Hola Sitio Principal");
 });
 
-//Llamar rutas de mascotas utlizando el midelware
-app.use("/mascotas",routerMascotas);
-app.use("/solicitud",routerSolicitud);
-app.use("/usuarios",routerUsuarios);
-app.use("/refugios",routerRefugios);
-app.use("/visitas",routerVisitas);
-app.use("/voluntarios",routerVoluntarios)
+app.use("/mascotas", routerMascotas);
+app.use("/usuarios", routerUsuarios);
+app.use("/solicitud", routerSolicitud);
+app.use("/refugios", routerRefugios);
+app.use("/visitas", routerVisitas);
+app.use("/voluntarios", routerVoluntarios);
 
+// Configuración del puerto del servidor
+const PORT = 3000;
 
-//Puerto de Servidor
-const PORT=3000;
-
-db.sync({force: true}).then(()=>{
-    //Abri servicio e iniciar el Servidor
-    app.listen(PORT,()=>{
-        console.log(`Servidor Inicializado en el puerto ${PORT}`);
-    })
-
-}).catch(err=>{
-    console.log(`Error al Sincronizar base de datos ${err}`);
-}); 
-
-
-
-
+db.sync({ force: true })
+  .then(() => {
+    // Iniciar servidor
+    app.listen(PORT, () => {
+      console.log(`Servidor inicializado en el puerto ${PORT}`);
+      console.log(`Documentación disponible en http://localhost:${PORT}/api-docs`);
+    });
+  })
+  .catch((err) => {
+    console.log(`Error al sincronizar la base de datos: ${err}`);
+  });
