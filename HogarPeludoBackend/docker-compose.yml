@@ -1,0 +1,35 @@
+
+services:
+  database:
+    image: mysql:8
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: hogarpeludo
+      MYSQL_USER: hogarpeludouser
+      MYSQL_PASSWORD: hogarpeludo2024
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: .
+    container_name: node_backend
+    restart: always
+    depends_on:
+      - database
+    environment:
+      DB_HOST: database
+      DB_USER: hogarpeludouser
+      DB_PASSWORD: hogarpeludo2024
+      DB_NAME: hogarpeludo
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command: ["node", "src/app.js"]
+
+volumes:
+  mysql_data:

@@ -12,7 +12,7 @@ El sistema ofrece un conjunto completo de funcionalidades para la administració
 |                |  
 | Backend        | Node.js, Express.js                      
 | Base de Datos  | MySQL (ORM: Sequelize)                   
-| Frontend       | Angular                                  
+| Frontend       | Angular                                 
 | Herramientas   | Nodemon (desarrollo), Postman (testing)  
 
 
@@ -41,7 +41,7 @@ El sistema ofrece un conjunto completo de funcionalidades para la administració
     -->MySQL instalado y corriendo.
 
     -->Angular CLI (si se despliega el frontend).
-
+## Instrucciones de creacion del proyecto 
    1. Lo primero que haremos será crear una carpeta para el BackEnd. Luego, accedemos a MySQL para crear la base de datos destinada a la empresa de adopción de mascotas, HogarPeludo, tal como se muestra en la imagen siguiente.
    ![imagen punto 1](Img_Readme\punto1.png)
 
@@ -99,6 +99,8 @@ En esta carpeta se crean dos archivos:
 **usuariosRouter.js:** Aquí se definen las rutas para manejar las operaciones CRUD relacionadas con usuarios.
 **refugiosRouter.js:** Se definen las rutas para las operaciones CRUD de los refugios.
 **visitasRouter.js:** Se definen las rutas para las operaciones CRUD de los visitas a las mascotas adoptadas.
+
+## Para correr el proyecto de forma local basta con ejecutar el comando npm run start
 
 ## Endpoints
    ----> utilizamos Postman para probar cada una de las rutas creadas. Se verificaron las operaciones de creación, lectura, actualización y eliminación  para las entidades: Mascotas,Solicitudes,Usuarios,Refugios confirmando que todo funciona correctamente como se muestra en las siguientes imágenes.
@@ -174,13 +176,18 @@ En esta carpeta se crean dos archivos:
 
    30. ![eliminar voluntario](Img_Readme\eliminar_voluntario.png)
 
-    ## Capturas con documentacion  swagger
 
-    31. ![capturas swagger](Img_Readme\swagger1.png)
+## Capturas con documentacion  swagger
 
-    32. ![capturas swagger](Img_Readme\swagger2.png)
+31. ![capturas swagger](Img_Readme\swagger1.png)
 
-    33. ![captura swagger](Img_Readme\swagger3.png)
+32. ![capturas swagger](Img_Readme\swagger2.png)
 
-    ## Documentación disponible en
-     http://localhost:3000/api-docs
+33. ![captura swagger](Img_Readme\swagger3.png)
+
+## Instruciones de despliegue con docker
+
+1.para inicializar el despliegue usando docker se ejecuta el comando "docker-compose up --build"
+
+## Documentación disponible en
+http://localhost:3000/api-docs
