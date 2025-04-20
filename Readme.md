@@ -48,8 +48,8 @@ El sistema ofrece un conjunto completo de funcionalidades para la administració
    2. A continuación, abrimos Visual Studio Code y, desde la terminal, iniciamos un nuevo proyecto con Node.js y Express.js utilizando el siguiente comando: npm init -y.
      
       Luego, realizamos las configuraciones necesarias para el proyecto. Primero, instalamos Nodemon para que el servidor se reinicie automáticamente cada vez que se realicen cambios en el código. Para ello, ejecutamos: npm install nodemon -D, Esta dependencia solo será utilizada durante la etapa de desarrollo. También instalamos Express, el framework que nos permitirá gestionar las rutas y solicitudes del servidor con el comando: npm install express. A continuación, instalamos el módulo mysql2 para establecer la conexión con la base de datos MySQL con el comando: npm install mysql2.Finalmente, instalamos Sequelize, que nos facilitará la interacción con la base de datos a través de un ORM para esto ejecutamos: npm install sequelize.
-    ![imagen punto 2](Img_Readme\punto2.png)
-    ![imagen punto 2.1](Img_Readme\punto2.1.png)
+    ![imagen punto 2](Img_Readme/punto2.png)
+    ![imagen punto 2.1](Img_Readme/punto2.1.png)
 
     
     3. Después de configurar el entorno, procedemos a crear un usuario y establecer una contraseña en DBeaver para administrar la base de datos. Asignamos los privilegios necesarios al nuevo usuario para garantizar que tenga acceso adecuado a la base de datos y pueda realizar las operaciones requeridas. Una vez que el usuario está configurado, comenzamos a trabajar en el desarrollo del backend en VSC.
@@ -107,83 +107,83 @@ En esta carpeta se crean dos archivos:
 
    ## CRUD MASCOTAS 
    
-   1. ![endpoint crear mascota ](Img_Readme\endpointcrearmascota.png)
+   1. ![endpoint crear mascota ](Img_Readme/endpointcrearmascota.png)
 
-   2. ![endpoint buscar mascota](Img_Readme\buscarmascota.png) 
+   2. ![endpoint buscar mascota](Img_Readme/buscarmascota.png) 
 
-   3. ![endpoint buscar mascota por id](Img_Readme\buscar_mascota_id.png)
+   3. ![endpoint buscar mascota por id](Img_Readme/buscar_mascota_id.png)
 
-   4. ![endpoint actualizar mascota](Img_Readme\actualizar_mascota.png) 
+   4. ![endpoint actualizar mascota](Img_Readme/actualizar_mascota.png) 
 
-   5. ![endpoint eliminar mascota](Img_Readme\eliminar_mascota.png)
+   5. ![endpoint eliminar mascota](Img_Readme/eliminar_mascota.png)
    
    ## CRUD SOLICITUDES
 
-   6. ![endpoint crear solicitud](Img_Readme\crear_solicitud.png)
+   6. ![endpoint crear solicitud](Img_Readme/crear_solicitud.png)
 
-   7. ![endpoint buscar solicitud](Img_Readme\endpoint_buscar_solicitud.png)
+   7. ![endpoint buscar solicitud](Img_Readme/endpoint_buscar_solicitud.png)
 
-   8. ![endpoint buscar solicitud por id](Img_Readme\endpoint_buscar_solicitud_por_id.png)
+   8. ![endpoint buscar solicitud por id](Img_Readme/endpoint_buscar_solicitud_por_id.png)
 
-   9. ![endpoint actualizar solicitud ](Img_Readme\actualizar_solicitud.png)
+   9. ![endpoint actualizar solicitud ](Img_Readme/actualizar_solicitud.png)
 
-   10. ![endpoint eliminar solicitud ](Img_Readme\eliminas_solicitud.png)
+   10. ![endpoint eliminar solicitud ](Img_Readme/eliminas_solicitud.png)
 
    ## CRUD USUARIOS 
 
-   11. ![endpoint crear usuario](Img_Readme\crear_usuario.png)
+   11. ![endpoint crear usuario](Img_Readme/crear_usuario.png)
    
-   12. ![endpoint buscar usuario](Img_Readme\buscar_usuario.png)
+   12. ![endpoint buscar usuario](Img_Readme/buscar_usuario.png)
 
-   13. ![endpoint buscar usuario id](Img_Readme\buscar_usuario_id.png)
+   13. ![endpoint buscar usuario id](Img_Readme/buscar_usuario_id.png)
 
-   14. ![endpoint actualizar usuario](Img_Readme\actualizar_usuario.png)
+   14. ![endpoint actualizar usuario](Img_Readme/actualizar_usuario.png)
 
-   15. ![endpoint elimar usuario](Img_Readme\eliminiar_usuario.png)
+   15. ![endpoint elimar usuario](Img_Readme/eliminiar_usuario.png)
 
    ## CRUD REFUGIOS
-   16. ![crear refigio](Img_Readme\crear_refugio.png)
+   16. ![crear refigio](Img_Readme/crear_refugio.png)
    
-   17. ![buscar refugios](Img_Readme\buscar_refugio.png)
+   17. ![buscar refugios](Img_Readme/buscar_refugio.png)
 
-   18. ![buscar refugios por id](Img_Readme\buscar_refugio_id.png)
+   18. ![buscar refugios por id](Img_Readme/buscar_refugio_id.png)
 
-   19. ![actualizar refugio](Img_Readme\actualizar_refugio.png)
+   19. ![actualizar refugio](Img_Readme/actualizar_refugio.png)
 
-   20. ![eliminar refigio](Img_Readme\buscar_refugio_id.png)
+   20. ![eliminar refigio](Img_Readme/buscar_refugio_id.png)
 
    ## para vistas de adopcion
 
-   21. ![crear visita](Img_Readme\crear_visita.png)
+   21. ![crear visita](Img_Readme/crear_visita.png)
    
-   22. ![buscar visita](Img_Readme\buscar_visita_id.png)
+   22. ![buscar visita](Img_Readme/buscar_visita_id.png)
 
-   23. ![buscar visita por id ](Img_Readme\buscar_visita_id.png)
+   23. ![buscar visita por id ](Img_Readme/buscar_visita_id.png)
 
-   24. ![actualizar visita ](Img_Readme\actualizar_visita.png)
+   24. ![actualizar visita ](Img_Readme/actualizar_visita.png)
 
-   25. ![eliminar visita ](Img_Readme\eliminar_visita.png)
+   25. ![eliminar visita ](Img_Readme/eliminar_visita.png)
 
 
 ## CRUD VOLUNTARIOS 
-   26. ![crear voluntario](Img_Readme\crear_volintario.png)
+   26. ![crear voluntario](Img_Readme/crear_volintario.png)
 
-   27. ![buscar voluntario](Img_Readme\buscar_voluntario.png)
+   27. ![buscar voluntario](Img_Readme/buscar_voluntario.png)
 
-   28. ![buscar voluntario id](Img_Readme\buscar_voluntario.png)
+   28. ![buscar voluntario id](Img_Readme/buscar_voluntario.png)
 
-   29. ![actualizar voluntario](Img_Readme\actualizar_voluntario.png)
+   29. ![actualizar voluntario](Img_Readme/actualizar_voluntario.png)
 
-   30. ![eliminar voluntario](Img_Readme\eliminar_voluntario.png)
+   30. ![eliminar voluntario](Img_Readme/eliminar_voluntario.png)
 
 
 ## Capturas con documentacion  swagger
 
-31. ![capturas swagger](Img_Readme\swagger1.png)
+31. ![capturas swagger](Img_Readme/swagger1.png)
 
-32. ![capturas swagger](Img_Readme\swagger2.png)
+32. ![capturas swagger](Img_Readme/swagger2.png)
 
-33. ![captura swagger](Img_Readme\swagger3.png)
+33. ![captura swagger](Img_Readme/swagger3.png)
 
 ## Instruciones de despliegue con docker
 
