@@ -43,7 +43,7 @@ El sistema ofrece un conjunto completo de funcionalidades para la administració
     -->Angular CLI (si se despliega el frontend).
 ## Instrucciones de creacion del proyecto 
    1. Lo primero que haremos será crear una carpeta para el BackEnd. Luego, accedemos a MySQL para crear la base de datos destinada a la empresa de adopción de mascotas, HogarPeludo, tal como se muestra en la imagen siguiente.
-   ![imagen punto 1](Img_Readme\punto1.png)
+   ![imagen punto 1](Img_Readme/punto1.png)
 
    2. A continuación, abrimos Visual Studio Code y, desde la terminal, iniciamos un nuevo proyecto con Node.js y Express.js utilizando el siguiente comando: npm init -y.
      
