@@ -13,6 +13,21 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - hogarpeludo-net
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak_container
+    restart: always
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    command: start-dev
+    networks:
+      - hogarpeludo-net
 
   backend:
     build: .
@@ -20,6 +35,7 @@ services:
     restart: always
     depends_on:
       - database
+      - keycloak
     environment:
       DB_HOST: database
       DB_USER: hogarpeludouser
@@ -30,6 +46,11 @@ services:
     volumes:
       - .:/app
     command: ["node", "src/app.js"]
+    networks:
+      - hogarpeludo-net
 
 volumes:
   mysql_data:
+
+networks:
+  hogarpeludo-net:
