@@ -68,15 +68,15 @@ app.use("/voluntarios", routerVoluntarios);
 const PORT = 3000;
 db.authenticate()
   .then(() => {
-    console.log("✅ Conexión a la base de datos correcta");
+    console.log("Conexión a la base de datos correcta");
     return db.sync({ force: true });
   })
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`🚀 Servidor en http://localhost:${PORT}`);
-      console.log(`📘 Documentación: http://localhost:${PORT}/api-docs`);
+      console.log(`Servidor en http://localhost:${PORT}`);
+      console.log(`Documentación: http://localhost:${PORT}/api-docs`);
     });
   })
   .catch((err) => {
-    console.error("❌ Error de conexión o sincronización:", err);
+    console.error("Error de conexión o sincronización:", err);
   });
