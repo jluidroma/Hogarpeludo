@@ -54,15 +54,16 @@ app.get("/", (req, res) => {
   res.send("Hola Sitio Principal");
 });
 
-// 5. Rutas protegidas con Keycloak (puedes proteger solo algunas)
+// 5. Rutas protegidas con Keycloak 
 app.use("/usuarios", keycloak.protect(), routerUsuarios);
-app.use("/solicitud", keycloak.protect(), routerSolicitud);
+
 
 // 6. Rutas sin protección
 app.use("/mascotas", routerMascotas);
 app.use("/refugios", routerRefugios);
 app.use("/visitas", routerVisitas);
 app.use("/voluntarios", routerVoluntarios);
+app.use("/solicitud", routerSolicitud);
 
 // 7. Iniciar DB y servidor
 const PORT = 3000;
