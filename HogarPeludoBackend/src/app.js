@@ -27,8 +27,22 @@ app.use(session({
   store: memoryStore
 }));
 
-const keycloak = new Keycloak({ store: memoryStore });
-app.use(keycloak.middleware()); // ⬅️ Activa el middleware
+const keycloakConfig = {
+  "realm": "hogarpeludo",
+  "auth-server-url": "http://localhost:8080/",
+  "ssl-required": "external",
+  "resource": "hogarpeludo-backend",
+  "public-client": false,
+  "confidential-port": 0,
+  "credentials": {
+    "secret": "iyAiVOBHJviJdwj4rPH1gNFwvp9yZbyo"
+  }
+};
+const keycloak = new Keycloak({ store: memoryStore }, keycloakConfig);
+
+//const keycloak = new Keycloak({ store: memoryStore });
+app.use(keycloak.middleware()); 
+
 
 // 2. CORS y JSON
 app.use(cors());

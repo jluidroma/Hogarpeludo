@@ -5,7 +5,7 @@ const routerRefugios = express.Router();
 
 /**
  * @swagger
- * /refugios/crearrefugio:
+ * /refugios:
  *   post:
  *     summary: Agrega un nuevo refugio
  *     tags: [Refugios]
@@ -28,13 +28,13 @@ const routerRefugios = express.Router();
  *       400:
  *         description: Error en los datos enviados
  */
-routerRefugios.post("/crearrefugio", (req, res) => {
+routerRefugios.post("/", (req, res) => {
   crear(req, res);
 });
 
 /**
  * @swagger
- * /refugios/buscarrefugios:
+ * /refugios:
  *   get:
  *     summary: Obtiene la lista de refugios
  *     tags: [Refugios]
@@ -42,13 +42,13 @@ routerRefugios.post("/crearrefugio", (req, res) => {
  *       200:
  *         description: Lista de refugios obtenida exitosamente
  */
-routerRefugios.get("/buscarrefugios", (req, res) => {
+routerRefugios.get("/", (req, res) => {
   buscar(req, res);
 });
 
 /**
  * @swagger
- * /refugios/buscarrefugioid/{id}:
+ * /refugios/{id}:
  *   get:
  *     summary: Busca un refugio por ID
  *     tags: [Refugios]
@@ -65,13 +65,13 @@ routerRefugios.get("/buscarrefugios", (req, res) => {
  *       404:
  *         description: Refugio no encontrado
  */
-routerRefugios.get("/buscarrefugioid/:id", (req, res) => {
+routerRefugios.get("/:id", (req, res) => {
   buscarId(req, res);
 });
 
 /**
  * @swagger
- * /refugios/actualizarrefugio/{id}:
+ * /refugios/{id}:
  *   put:
  *     summary: Actualiza los datos de un refugio
  *     tags: [Refugios]
@@ -98,13 +98,13 @@ routerRefugios.get("/buscarrefugioid/:id", (req, res) => {
  *       400:
  *         description: Error en la solicitud
  */
-routerRefugios.put("/actualizarrefugio/:id", (req, res) => {
+routerRefugios.put("/:id", (req, res) => {
   actualizar(req, res);
 });
 
 /**
  * @swagger
- * /refugios/eliminarrefugio/{id}:
+ * /refugios/{id}:
  *   delete:
  *     summary: Elimina un refugio por ID
  *     tags: [Refugios]
@@ -120,7 +120,7 @@ routerRefugios.put("/actualizarrefugio/:id", (req, res) => {
  *       404:
  *         description: Refugio no encontrado
  */
-routerRefugios.delete("/eliminarrefugio/:id", (req, res) => {
+routerRefugios.delete("/:id", (req, res) => {
   eliminar(req, res);
 });
 
