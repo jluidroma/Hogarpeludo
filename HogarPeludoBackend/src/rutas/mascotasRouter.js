@@ -5,7 +5,7 @@ const routerMascotas = express.Router();
 
 /**
  * @swagger
- * /mascotas/crearmascota:
+ * /mascotas:
  *   post:
  *     summary: Agrega una nueva mascota
  *     tags: [Mascotas]
@@ -28,7 +28,7 @@ const routerMascotas = express.Router();
  *       400:
  *         description: Error en los datos enviados
  */
-routerMascotas.post("/crearmascota", crear);
+routerMascotas.post("/", crear);
 
 /**
  * @swagger

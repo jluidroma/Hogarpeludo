@@ -5,7 +5,7 @@ const routerUsuarios = express.Router();
 
 /**
  * @swagger
- * /usuarios/crearusuario:
+ * /usuarios:
  *   post:
  *     summary: Crea un nuevo usuario
  *     tags: [Usuarios]
@@ -28,13 +28,13 @@ const routerUsuarios = express.Router();
  *       400:
  *         description: Datos incorrectos o incompletos
  */
-routerUsuarios.post("/crearusuario", (req, res) => {
+routerUsuarios.post("/", (req, res) => {
     crear(req, res);
 });
 
 /**
  * @swagger
- * /usuarios/buscarusuario:
+ * /usuarios:
  *   get:
  *     summary: Obtiene todos los usuarios
  *     tags: [Usuarios]
@@ -42,13 +42,13 @@ routerUsuarios.post("/crearusuario", (req, res) => {
  *       200:
  *         description: Lista de usuarios obtenida correctamente
  */
-routerUsuarios.get("/buscarusuario", (req, res) => {
+routerUsuarios.get("/", (req, res) => {
     buscar(req, res);
 });
 
 /**
  * @swagger
- * /usuarios/buscarusuarioid/{id}:
+ * /usuarios/{id}:
  *   get:
  *     summary: Busca un usuario por ID
  *     tags: [Usuarios]
@@ -65,13 +65,13 @@ routerUsuarios.get("/buscarusuario", (req, res) => {
  *       404:
  *         description: Usuario no encontrado
  */
-routerUsuarios.get("/buscarusuarioid/:id", (req, res) => {
+routerUsuarios.get("/:id", (req, res) => {
     buscarId(req, res);
 });
 
 /**
  * @swagger
- * /usuarios/actualizarusuario/{id}:
+ * /usuarios/{id}:
  *   put:
  *     summary: Actualiza un usuario por ID
  *     tags: [Usuarios]
@@ -99,13 +99,13 @@ routerUsuarios.get("/buscarusuarioid/:id", (req, res) => {
  *       400:
  *         description: Error en la solicitud
  */
-routerUsuarios.put("/actualizarusuario/:id", (req, res) => {
+routerUsuarios.put("/:id", (req, res) => {
     actualizar(req, res);
 });
 
 /**
  * @swagger
- * /usuarios/eliminarusuario/{id}:
+ * /usuarios/{id}:
  *   delete:
  *     summary: Elimina un usuario por ID
  *     tags: [Usuarios]
@@ -122,7 +122,7 @@ routerUsuarios.put("/actualizarusuario/:id", (req, res) => {
  *       404:
  *         description: Usuario no encontrado
  */
-routerUsuarios.delete("/eliminarusuario/:id", (req, res) => {
+routerUsuarios.delete("/:id", (req, res) => {
     eliminar(req, res);
 });
 

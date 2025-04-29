@@ -1,0 +1,13 @@
+{
+     "realm": "hogarpeludo",
+     "auth-server-url": "http://localhost:8080",
+     "ssl-required": "external",
+     "resource": "hogarpeludo-backend",
+     "public-client": false,
+     "bearer-only": true,
+     "credentials":{
+        "secret": "iyAiVOBHJviJdwj4rPH1gNFwvp9yZbyo"
+     },
+     "confidential-port": 0
+   }
+   
