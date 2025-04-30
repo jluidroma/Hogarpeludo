@@ -5,7 +5,7 @@ const routerSolicitud = express.Router();
 
 /**
  * @swagger
- * /solicitud/crearsolicitud/{id_mascota}:
+ * /solicitudes/{id_mascota}:
  *   post:
  *     summary: Crea una nueva solicitud de adopción
  *     tags: [Solicitudes]
@@ -35,13 +35,13 @@ const routerSolicitud = express.Router();
  *       400:
  *         description: Datos incorrectos o incompletos
  */
-routerSolicitud.post("/crearsolicitud/:id_mascota", (req, res) => {
+routerSolicitud.post("/:id_mascota", (req, res) => {
     crearSolicitud(req, res);
 });
 
 /**
  * @swagger
- * /solicitud/buscarsolicitudes:
+ * /solicitudes:
  *   get:
  *     summary: Obtiene todas las solicitudes de adopción
  *     tags: [Solicitudes]
@@ -49,13 +49,13 @@ routerSolicitud.post("/crearsolicitud/:id_mascota", (req, res) => {
  *       200:
  *         description: Lista de solicitudes obtenida correctamente
  */
-routerSolicitud.get("/buscarsolicitudes", (req, res) => {
+routerSolicitud.get("/", (req, res) => {
     buscarSolicitud(req, res);
 });
 
 /**
  * @swagger
- * /solicitud/buscarsolicitudid/{id}:
+ * /solicitudes/{id}:
  *   get:
  *     summary: Busca una solicitud de adopción por ID
  *     tags: [Solicitudes]
@@ -72,13 +72,13 @@ routerSolicitud.get("/buscarsolicitudes", (req, res) => {
  *       404:
  *         description: Solicitud no encontrada
  */
-routerSolicitud.get("/buscarsolicitudid/:id", (req, res) => {
+routerSolicitud.get("/:id", (req, res) => {
     buscarSolicitudId(req, res);
 });
 
 /**
  * @swagger
- * /solicitud/actualizarsolicitud/{id}:
+ * /solicitud/{id}:
  *   put:
  *     summary: Actualiza una solicitud de adopción por ID
  *     tags: [Solicitudes]
@@ -108,13 +108,13 @@ routerSolicitud.get("/buscarsolicitudid/:id", (req, res) => {
  *       400:
  *         description: Error en la solicitud
  */
-routerSolicitud.put("/actualizarsolicitud/:id", (req, res) => {
+routerSolicitud.put("/:id", (req, res) => {
     actualizarSolicitud(req, res);
 });
 
 /**
  * @swagger
- * /solicitud/eliminarsolicitud/{id}:
+ * /solicitudes/{id}:
  *   delete:
  *     summary: Elimina una solicitud de adopción por ID
  *     tags: [Solicitudes]
@@ -131,7 +131,7 @@ routerSolicitud.put("/actualizarsolicitud/:id", (req, res) => {
  *       404:
  *         description: Solicitud no encontrada
  */
-routerSolicitud.delete("/eliminarsolicitud/:id", (req, res) => {
+routerSolicitud.delete("/:id", (req, res) => {
     eliminarSolicitud(req, res);
 });
 

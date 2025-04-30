@@ -5,7 +5,7 @@ const routerVoluntarios = express.Router();
 
 /**
  * @swagger
- * /voluntarios/crearvoluntario:
+ * /voluntarios/:
  *   post:
  *     summary: Agrega un nuevo voluntario
  *     tags: [Voluntarios]
@@ -28,13 +28,13 @@ const routerVoluntarios = express.Router();
  *       400:
  *         description: Error en los datos enviados
  */
-routerVoluntarios.post("/crearvoluntario",(req,res)=>{
+routerVoluntarios.post("/",(req,res)=>{
      crear(req,res);
 });
 
 /**
  * @swagger
- * /voluntarios/buscarvoluntario:
+ * /voluntarios/:
  *   get:
  *     summary: Obtiene la lista de voluntarios
  *     tags: [Voluntarios]
@@ -42,13 +42,13 @@ routerVoluntarios.post("/crearvoluntario",(req,res)=>{
  *       200:
  *         description: Lista de voluntarios
  */
-routerVoluntarios.get("/buscarvoluntario",(req,res)=>{
+routerVoluntarios.get("/",(req,res)=>{
      buscar(req,res);
 });
 
 /**
  * @swagger
- * /voluntarios/buscarvoluntarioid/{id}:
+ * /voluntarios/{id}:
  *   get:
  *     summary: Busca un voluntario por ID
  *     tags: [Voluntarios]
@@ -65,13 +65,13 @@ routerVoluntarios.get("/buscarvoluntario",(req,res)=>{
  *       404:
  *         description: Voluntario no encontrado
  */
-routerVoluntarios.get("/buscarvoluntarioid/:id",(req,res)=>{
+routerVoluntarios.get("/:id",(req,res)=>{
      buscarId(req,res);
 });
 
 /**
  * @swagger
- * /voluntarios/actualizarvoluntario/{id}:
+ * /voluntarios/{id}:
  *   put:
  *     summary: Actualiza los datos de un voluntario
  *     tags: [Voluntarios]
@@ -98,13 +98,13 @@ routerVoluntarios.get("/buscarvoluntarioid/:id",(req,res)=>{
  *       400:
  *         description: Error en la solicitud
  */
-routerVoluntarios.put("/actualizarvoluntario/:id",(req,res)=>{
+routerVoluntarios.put("/:id",(req,res)=>{
      actualizar(req,res);
 });
 
 /**
  * @swagger
- * /voluntarios/eliminarvoluntario/{id}:
+ * /voluntarios/{id}:
  *   delete:
  *     summary: Elimina un voluntario por ID
  *     tags: [Voluntarios]
@@ -120,7 +120,7 @@ routerVoluntarios.put("/actualizarvoluntario/:id",(req,res)=>{
  *       404:
  *         description: Voluntario no encontrado
  */
-routerVoluntarios.delete("/eliminarvoluntario/:id",(req,res)=>{
+routerVoluntarios.delete("/:id",(req,res)=>{
      eliminar(req,res);
 })
 
