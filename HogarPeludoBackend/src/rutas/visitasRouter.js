@@ -5,7 +5,7 @@ const routerVisitas = express.Router();
 
 /**
  * @swagger
- * /visitas/crearvisita:
+ * /visitas:
  *   post:
  *     summary: Crea una nueva visita
  *     tags: [Visitas]
@@ -27,13 +27,13 @@ const routerVisitas = express.Router();
  *       400:
  *         description: Datos incorrectos o incompletos
  */
-routerVisitas.post("/crearvisita", (req, res) => {
+routerVisitas.post("/", (req, res) => {
     crear(req, res);
 });
 
 /**
  * @swagger
- * /visitas/buscarvisita:
+ * /visitas/:
  *   get:
  *     summary: Obtiene todas las visitas
  *     tags: [Visitas]
@@ -41,13 +41,13 @@ routerVisitas.post("/crearvisita", (req, res) => {
  *       200:
  *         description: Lista de visitas obtenida correctamente
  */
-routerVisitas.get("/buscarvisita", (req, res) => {
+routerVisitas.get("/", (req, res) => {
     buscar(req, res);
 });
 
 /**
  * @swagger
- * /visitas/buscarvisitaid/{id}:
+ * /visitas/{id}:
  *   get:
  *     summary: Busca una visita por ID
  *     tags: [Visitas]
@@ -64,13 +64,13 @@ routerVisitas.get("/buscarvisita", (req, res) => {
  *       404:
  *         description: Visita no encontrada
  */
-routerVisitas.get("/buscarvisitaid/:id", (req, res) => {
+routerVisitas.get("/:id", (req, res) => {
     buscarId(req, res);
 });
 
 /**
  * @swagger
- * /visitas/actualizarvisita/{id}:
+ * /visitas/{id}:
  *   put:
  *     summary: Actualiza una visita por ID
  *     tags: [Visitas]
@@ -99,13 +99,13 @@ routerVisitas.get("/buscarvisitaid/:id", (req, res) => {
  *       400:
  *         description: Error en la solicitud
  */
-routerVisitas.put("/actualizarvisita/:id", (req, res) => {
+routerVisitas.put("/:id", (req, res) => {
     actualizar(req, res);
 });
 
 /**
  * @swagger
- * /visitas/eliminarvisita/{id}:
+ * /visitas/{id}:
  *   delete:
  *     summary: Elimina una visita por ID
  *     tags: [Visitas]
@@ -122,7 +122,7 @@ routerVisitas.put("/actualizarvisita/:id", (req, res) => {
  *       404:
  *         description: Visita no encontrada
  */
-routerVisitas.delete("/eliminarvisita/:id", (req, res) => {
+routerVisitas.delete("/:id", (req, res) => {
     eliminar(req, res);
 });
 

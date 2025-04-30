@@ -32,7 +32,7 @@ routerMascotas.post("/", crear);
 
 /**
  * @swagger
- * /mascotas/buscarmascotas:
+ * /mascotas/:
  *   get:
  *     summary: Obtiene la lista de mascotas
  *     tags: [Mascotas]
@@ -40,11 +40,11 @@ routerMascotas.post("/", crear);
  *       200:
  *         description: Lista de mascotas
  */
-routerMascotas.get("/buscarmascotas", buscar);
+routerMascotas.get("/", buscar);
 
 /**
  * @swagger
- * /mascotas/buscarmascotaid/{id}:
+ * /mascotas/{id}:
  *   get:
  *     summary: Busca una mascota por ID
  *     tags: [Mascotas]
@@ -61,11 +61,11 @@ routerMascotas.get("/buscarmascotas", buscar);
  *       404:
  *         description: Mascota no encontrada
  */
-routerMascotas.get("/buscarmascotaid/:id", buscarId);
+routerMascotas.get("/:id", buscarId);
 
 /**
  * @swagger
- * /mascotas/actualizarmascota/{id}:
+ * /mascotas/{id}:
  *   put:
  *     summary: Actualiza los datos de una mascota
  *     tags: [Mascotas]
@@ -92,11 +92,11 @@ routerMascotas.get("/buscarmascotaid/:id", buscarId);
  *       400:
  *         description: Error en la solicitud
  */
-routerMascotas.put("/actualizarmascota/:id", actualizar);
+routerMascotas.put("/:id", actualizar);
 
 /**
  * @swagger
- * /mascotas/eliminarmascota/{id}:
+ * /mascotas/{id}:
  *   delete:
  *     summary: Elimina una mascota por ID
  *     tags: [Mascotas]
@@ -112,6 +112,6 @@ routerMascotas.put("/actualizarmascota/:id", actualizar);
  *       404:
  *         description: Mascota no encontrada
  */
-routerMascotas.delete("/eliminarmascota/:id", eliminar);
+routerMascotas.delete("/:id", eliminar);
 
 export { routerMascotas };

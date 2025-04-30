@@ -15,7 +15,7 @@ const visitas = db.define("visitas",{
           allowNull: true,
           references: {
                model: solicitud, // Nombre del modelo que referencia
-               key: 'id_adopcion'       // Clave primaria en el modelo "solicitud"
+               key: 'id_adopcion'// Clave primaria en el modelo "solicitud"
           }
      },
      fecha_visita:{
