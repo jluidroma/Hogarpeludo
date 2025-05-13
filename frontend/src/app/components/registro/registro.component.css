@@ -1,0 +1,89 @@
+/* Fondo blanco en toda la pantalla */
+body {
+  background-color: #ffffff;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Sección centrada */
+.form-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 15px;
+  background-color: #ffffff;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  width: 100%;
+  max-width: 550px;
+}
+
+/* Encabezado */
+.highlight-box {
+  background-color: #e0f0ff;
+  padding: 20px;
+  border-left: 5px solid #5a9bd4;
+  border-radius: 8px;
+}
+
+/* Formulario */
+.text-box {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #dceaff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Etiquetas y campos */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input-estilo {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-estilo:focus {
+  outline: none;
+  border-color: #5a9bd4;
+  box-shadow: 0 0 5px rgba(90, 155, 212, 0.4);
+}
+
+/* Botón */
+.btn-registro {
+  background-color: #5a9bd4;
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-registro:hover {
+  background-color: #4a8ac1;
+  transform: scale(1.02);
+}
+.form-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
