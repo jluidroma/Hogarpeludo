@@ -3,11 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
+import { CarruselComponent } from './components/carrusel/carrusel.component';
+import { RegistroComponent } from './components/registro/registro.component';
+import { LoginComponent } from './components/login/login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,FooterComponent,HeaderComponent,HomeComponent],
+  imports: [RouterOutlet,FooterComponent,HeaderComponent,HomeComponent, CarruselComponent, RegistroComponent, LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
