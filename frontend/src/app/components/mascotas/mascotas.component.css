@@ -1,0 +1,41 @@
+/*apartado de la sesión de adoptar mascotas*/
+.header-container {
+     background-color: rgb(40, 124, 192);
+     height: 90px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 0 10%; /* Espacio a los lados */
+}
+/*Cambia el color del texto a blanco*/
+.header-title {
+     margin: 0; 
+     color: white; 
+}
+.hover-btn {
+     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-btn:hover {
+     transform: scale(1.05);
+     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/*para agregar sobras y efectos en las targetas*/
+.hover-effect {
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hover-effect:hover {
+transform: scale(1.05);
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+/*efecto para realsar los botones de las tarjetas, cuando se pasa el mouse*/
+.hover-btn {
+transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-btn:hover {
+transform: scale(1.1);
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); 
+}
