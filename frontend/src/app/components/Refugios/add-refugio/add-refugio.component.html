@@ -1,0 +1,62 @@
+<!-- refugio-registro.component.html -->
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl">
+  <h2 class="text-3xl font-bold text-center text-indigo-600 mb-6">Registrar Refugio de Mascotas</h2>
+  
+  <form (ngSubmit)="registrarRefugio()" #formRef="ngForm" class="space-y-5">
+    <div>
+      <label class="block font-semibold mb-1">Nombre del refugio</label>
+      <input type="text" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="refugio.nombre" name="nombre" />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-semibold mb-1">Dirección</label>
+        <input type="text" class="w-full border rounded-xl px-4 py-2" [(ngModel)]="refugio.direccion" name="direccion" />
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">Ciudad</label>
+        <input type="text" class="w-full border rounded-xl px-4 py-2" [(ngModel)]="refugio.ciudad" name="ciudad" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-semibold mb-1">Teléfono</label>
+        <input type="tel" class="w-full border rounded-xl px-4 py-2" [(ngModel)]="refugio.telefono" name="telefono" />
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">Correo electrónico</label>
+        <input type="email" class="w-full border rounded-xl px-4 py-2" [(ngModel)]="refugio.email" name="email" />
+      </div>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Persona de contacto</label>
+      <input type="text" class="w-full border rounded-xl px-4 py-2" [(ngModel)]="refugio.contacto" name="contacto" />
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Tipo de animales</label>
+      <div class="flex gap-4">
+        <label><input type="checkbox" [(ngModel)]="refugio.animales.perros" name="perros" /> Perros</label>
+        <label><input type="checkbox" [(ngModel)]="refugio.animales.gatos" name="gatos" /> Gatos</label>
+        <label><input type="checkbox" [(ngModel)]="refugio.animales.otros" name="otros" /> Otros</label>
+      </div>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Descripción</label>
+      <textarea class="w-full border rounded-xl px-4 py-2" rows="3" [(ngModel)]="refugio.descripcion" name="descripcion"></textarea>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Imagen del refugio (opcional)</label>
+      <input type="file" class="w-full border rounded-xl px-4 py-2" (change)="subirImagen($event)" />
+    </div>
+
+    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl w-full mt-4">
+      Registrar Refugio
+    </button>
+  </form>
+</div>
+

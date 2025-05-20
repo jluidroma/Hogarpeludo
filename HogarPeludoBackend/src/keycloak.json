@@ -1,0 +1,10 @@
+{
+  "realm": "Cortex",
+  "auth-server-url": "http://keycloak:8080",
+  "ssl-required": "external",
+  "resource": "web_app",
+  "credentials": {
+    "secret": "FFNGd6EfqxhKwtVGyXz4jVKGTT8K3znq"
+  },
+  "confidential-port": 0
+}

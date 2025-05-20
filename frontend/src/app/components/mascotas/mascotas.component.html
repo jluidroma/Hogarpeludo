@@ -1,8 +1,31 @@
+<h1>hola</h1>
 <div>
   <div class="header-container">
     <h2 class="header-title">Adoptar mascotas</h2>
-    <a class="btn btn-success hover-btn" >
+    <a class="btn btn-success hover-btn" [routerLink]="['/mascotas/add/']">
       <i class="bi bi-plus-circle"></i>Agregar Mascota
     </a>
+  </div>
+</div>
+<div class="row row-cols-1 row-cols-md-4 g-4" style="margin: 20px 3%;">
+  <div class="col" *ngFor="let mascota of mascotas | async">
+    <div class="card border-light shadow-sm hover-effect" *ngIf="mascota?.estado_adopcion !== 'Adoptado'">
+      <img [src]="mascota.imagen" class="card-img-top" alt="Imagen de la mascota" style="width: 315px; height: 220px; object-fit: cover;">
+      <div class="card-body">
+        <h2 class="card-title ml-5">{{ mascota.nombre }}</h2>
+        <h1>{{title}}</h1>
+        <h6>Raza: {{ mascota.raza }}</h6>
+        <h6>Edad: {{ mascota.edad }}</h6>
+        <h6>Sexo: {{ mascota.sexo }}</h6>
+        <h6>Tamaño: {{ mascota.talla }}</h6>
+        
+        <div class="d-flex justify-content-between">
+          <a class="btn btn-primary flex-grow-1 me-2 hover-btn" [routerLink]="['/mascotas/edit', mascota.id]"><i class="bi bi-pencil-square"></i>Editar</a>
+          <a class="btn btn-danger flex-grow-1 hover-btn" (click)="eliminarMascota(mascota.id)"><i class="bi bi-trash3"></i>Eliminar</a>
+        </div>
+    
+        <button class="btn btn-success mt-2 w-100 hover-btn" [routerLink]="['/solicitud/crearsolicitud/', mascota.id]">Adoptar</button>
+      </div>
+    </div>
   </div>
 </div>
