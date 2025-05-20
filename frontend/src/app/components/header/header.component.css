@@ -67,14 +67,11 @@
   transition: background 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #e65100;
-}
 
 /* Botón de registro con borde y texto visibles */
 .btn-outline {
   border: 2px solid #f57c00;
-  background-color: #fff8f0; /* Fondo claro para que destaque */
+  background-color: #f57c00;; /* Fondo claro para que destaque */
   color: #f57c00; /* Texto de color naranja */
   padding: 8px 16px;
   border-radius: 25px;
