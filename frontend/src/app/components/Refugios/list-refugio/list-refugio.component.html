@@ -2,12 +2,10 @@
   <!-- Encabezado con botón Agregar -->
   <div class="flex justify-between items-center mb-6">
     <h2 class="text-3xl font-bold text-indigo-600">Listado de Refugios</h2>
-    <button
-      class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl transition duration-300 shadow-md hover:scale-105"
-      [routerLink]="['/refugios/add']"
-    >
-      <i class="bi bi-plus-circle text-lg"></i> Agregar Refugio
-    </button>
+  <button class="btn-agregar-refugio" [routerLink]="['/refugios/add']">
+    <i class="bi bi-plus-circle"></i> Agregar Refugio
+  </button>
+
   </div>
 
   <!-- Tabla de Refugios -->
@@ -30,15 +28,17 @@
           <td class="px-6 py-4 border-b">{{ refugio.telefono }}</td>
           <td class="px-6 py-4 border-b text-center space-x-2">
             <button
-              class="btn-opcion bg-yellow-400 hover:bg-yellow-500"
-               [routerLink]="['/refugios/edit', refugio.id]">
+              class="btn-opcion btn-editar"
+              [routerLink]="['/refugios/edit', refugio.id]">
               <i class="bi bi-pencil-square"></i> Editar
             </button>
+
             <button
-              class="btn-opcion bg-red-500 hover:bg-red-600"
+              class="btn-opcion btn-eliminar"
               (click)="eliminarRefugio(refugio.id)">
               <i class="bi bi-trash"></i> Eliminar
             </button>
+
           </td>
         </tr>
       </tbody>

@@ -37,3 +37,64 @@ td {
   transform: scale(1.05);
   cursor: pointer;
 }
+
+.btn-agregar-refugio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #059669; /* verde esmeralda */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 1rem;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-agregar-refugio:hover {
+  background-color: #047857; /* verde más oscuro */
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn-agregar-refugio:active {
+  transform: scale(1);
+}
+
+.btn-opcion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Botón Editar (amarillo) */
+.btn-editar {
+  background-color: #facc15; /* amarillo 400 */
+}
+
+.btn-editar:hover {
+  background-color: #fbbf24; /* amarillo 500 */
+  transform: scale(1.05);
+}
+
+/* Botón Eliminar (rojo) */
+.btn-eliminar {
+  background-color: #ef4444; /* rojo 500 */
+}
+
+.btn-eliminar:hover {
+  background-color: #dc2626; /* rojo 600 */
+  transform: scale(1.05);
+}
