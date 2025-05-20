@@ -1,87 +1,57 @@
 import express from "express";
-import { actualizar, buscar, buscarId, crear, eliminar } from "../controladores/usuariosController.js";
+import {
+    actualizar,
+    buscar,
+    buscarId,
+    crear,
+    eliminar
+} from "../controladores/usuariosController.js";
 
 const routerUsuarios = express.Router();
 
 /**
  * @swagger
  * /usuarios:
- *   post:
- *     summary: Crea un nuevo usuario
+ *   get:
+ *     summary: Obtener todos los usuarios
  *     tags: [Usuarios]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               nombre:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
  *     responses:
- *       201:
- *         description: Usuario creado exitosamente
- *       400:
- *         description: Datos incorrectos o incompletos
+ *       200:
+ *         description: Lista de usuarios
  */
-routerUsuarios.post("/", (req, res) => {
-    crear(req, res);
+routerUsuarios.get("/", buscar);
+
+/**
+ * @swagger
+ * /usuarios/{id}:
+ *   get:
+ *     summary: Obtener un usuario por ID
+ *     tags: [Usuarios]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Usuario encontrado
+ *       404:
+ *         description: Usuario no encontrado
+ */
+routerUsuarios.get("/", (req, res) => {
+  res.json([
+    { id: 1, nombre: "Juan", email: "juan@example.com" },
+    { id: 2, nombre: "María", email: "maria@example.com" }
+  ]);
 });
 
 /**
  * @swagger
  * /usuarios:
- *   get:
- *     summary: Obtiene todos los usuarios
+ *   post:
+ *     summary: Crear un nuevo usuario
  *     tags: [Usuarios]
- *     responses:
- *       200:
- *         description: Lista de usuarios obtenida correctamente
- */
-routerUsuarios.get("/", (req, res) => {
-    buscar(req, res);
-});
-
-/**
- * @swagger
- * /usuarios/{id}:
- *   get:
- *     summary: Busca un usuario por ID
- *     tags: [Usuarios]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID del usuario
- *     responses:
- *       200:
- *         description: Datos del usuario encontrados
- *       404:
- *         description: Usuario no encontrado
- */
-routerUsuarios.get("/:id", (req, res) => {
-    buscarId(req, res);
-});
-
-/**
- * @swagger
- * /usuarios/{id}:
- *   put:
- *     summary: Actualiza un usuario por ID
- *     tags: [Usuarios]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID del usuario
  *     requestBody:
  *       required: true
  *       content:
@@ -91,23 +61,22 @@ routerUsuarios.get("/:id", (req, res) => {
  *             properties:
  *               nombre:
  *                 type: string
- *               email:
+ *               correo:
  *                 type: string
  *     responses:
- *       200:
- *         description: Usuario actualizado correctamente
+ *       201:
+ *         description: Usuario creado
  *       400:
- *         description: Error en la solicitud
+ *         description: Error en los datos
  */
-routerUsuarios.put("/:id", (req, res) => {
-    actualizar(req, res);
-});
+routerUsuarios.post("/",(req, res) => {
+    res.status(201).json({ mensaje: "Usuario creado" })});
 
 /**
  * @swagger
  * /usuarios/{id}:
- *   delete:
- *     summary: Elimina un usuario por ID
+ *   put:
+ *     summary: Actualizar un usuario existente
  *     tags: [Usuarios]
  *     parameters:
  *       - in: path
@@ -115,15 +84,43 @@ routerUsuarios.put("/:id", (req, res) => {
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               correo:
+ *                 type: string
  *     responses:
  *       200:
- *         description: Usuario eliminado correctamente
+ *         description: Usuario actualizado
+ *       400:
+ *         description: Error de validación
+ */
+routerUsuarios.put("/:id", actualizar);
+
+/**
+ * @swagger
+ * /usuarios/{id}:
+ *   delete:
+ *     summary: Eliminar un usuario
+ *     tags: [Usuarios]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado
  *       404:
  *         description: Usuario no encontrado
  */
-routerUsuarios.delete("/:id", (req, res) => {
-    eliminar(req, res);
-});
+routerUsuarios.delete("/:id", eliminar);
 
 export { routerUsuarios };

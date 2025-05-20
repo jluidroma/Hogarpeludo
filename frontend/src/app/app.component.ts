@@ -6,6 +6,8 @@ import { HomeComponent } from './components/home/home.component';
 import { CarruselComponent } from './components/carrusel/carrusel.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { provideRouter } from '@angular/router'; 
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
