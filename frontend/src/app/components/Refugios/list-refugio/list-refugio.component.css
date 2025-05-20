@@ -1,0 +1,39 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1rem;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  background-color: #e0e7ff; /* Indigo-100 */
+  color: #4338ca; /* Indigo-700 */
+}
+
+td {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Estilos de los botones */
+.btn-opcion {
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-opcion:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}

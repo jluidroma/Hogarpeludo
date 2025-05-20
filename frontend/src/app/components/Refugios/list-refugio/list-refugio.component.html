@@ -1,1 +1,47 @@
-<p>list-refugio works!</p>
+<div class="max-w-6xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl">
+  <!-- Encabezado con botón Agregar -->
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold text-indigo-600">Listado de Refugios</h2>
+    <button
+      class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl transition duration-300 shadow-md hover:scale-105"
+      [routerLink]="['/refugios/add']"
+    >
+      <i class="bi bi-plus-circle text-lg"></i> Agregar Refugio
+    </button>
+  </div>
+
+  <!-- Tabla de Refugios -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+      <thead class="bg-indigo-100 text-indigo-800 font-semibold text-left">
+        <tr>
+          <th class="px-6 py-3 border-b">Nombre</th>
+          <th class="px-6 py-3 border-b">Ubicación</th>
+          <th class="px-6 py-3 border-b">Email</th>
+          <th class="px-6 py-3 border-b">Teléfono</th>
+          <th class="px-6 py-3 border-b text-center">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let refugio of refugios | async" class="hover:bg-gray-50 transition">
+          <td class="px-6 py-4 border-b">{{ refugio.nombre }}</td>
+          <td class="px-6 py-4 border-b">{{ refugio.ubicacion }}</td>
+          <td class="px-6 py-4 border-b">{{ refugio.email }}</td>
+          <td class="px-6 py-4 border-b">{{ refugio.telefono }}</td>
+          <td class="px-6 py-4 border-b text-center space-x-2">
+            <button
+              class="btn-opcion bg-yellow-400 hover:bg-yellow-500"
+               [routerLink]="['/refugios/edit', refugio.id]">
+              <i class="bi bi-pencil-square"></i> Editar
+            </button>
+            <button
+              class="btn-opcion bg-red-500 hover:bg-red-600"
+              (click)="eliminarRefugio(refugio.id)">
+              <i class="bi bi-trash"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
