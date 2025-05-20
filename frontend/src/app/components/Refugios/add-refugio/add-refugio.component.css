@@ -1,0 +1,63 @@
+/* Estilo general del formulario */
+form {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  transition: box-shadow 0.3s ease;
+}
+
+form:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #6366f1; /* Indigo-500 */
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+/* Labels */
+label {
+  font-weight: 600;
+  color: #334155; /* Slate-700 */
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Botón */
+button[type="submit"] {
+  background-color: #6366f1; /* Indigo-500 */
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #4f46e5; /* Indigo-600 */
+}
+
+/* Título */
+h2 {
+  color: #4f46e5;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}

@@ -1,23 +1,20 @@
-import { Component,OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { MascotaModel } from '../../shared/models/mascota.model';
-import { MascotaService } from '../../shared/services/mascota.service';
+import { Component } from '@angular/core';
+import { MascotaModel } from '../../../shared/models/mascota.model';
+import { MascotaService } from '../../../shared/services/mascota.service';
 import { Observable } from 'rxjs';
 import { RouterLink,RouterLinkActive  } from '@angular/router';
-
-
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-mascotas',
+  selector: 'app-list-mascotas',
   standalone: true,
-  imports: [CommonModule, RouterModule,RouterLink, RouterLinkActive],
-  templateUrl: './mascotas.component.html',
-  styleUrl: './mascotas.component.css'
+  imports: [RouterLink, RouterLinkActive,CommonModule,RouterModule],
+  templateUrl: './list-mascotas.component.html',
+  styleUrl: './list-mascotas.component.css'
 })
-
-  export class MascotasComponent implements OnInit {
-  title = 'Mascotas en adopción'
+export class ListMascotasComponent {
+title = 'Mascotas en adopción'
   //IMPORTAR las mascotas creadas de nuestra base  de datos
   mascotas: Observable<MascotaModel[]> | undefined;
   
@@ -47,4 +44,3 @@ import { RouterLink,RouterLinkActive  } from '@angular/router';
     });
   }
 }
-
