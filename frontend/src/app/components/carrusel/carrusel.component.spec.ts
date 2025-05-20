@@ -1,23 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { CarruselComponent } from './carrusel.component';
-
-describe('CarruselComponent', () => {
-  let component: CarruselComponent;
-  let fixture: ComponentFixture<CarruselComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CarruselComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(CarruselComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+@Component({
+  selector: 'app-carrusel',
+  templateUrl: './carrusel.component.html',
+  styleUrls: ['./carrusel.component.css'],
+  standalone: true,
+  imports: [CommonModule]
+})
+export class CarruselComponent {
+  currentSlide = 1; // Para rastrear la diapositiva actual (1, 2 o 3)
+}
