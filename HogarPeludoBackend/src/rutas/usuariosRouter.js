@@ -39,12 +39,10 @@ routerUsuarios.get("/", buscar);
  *       404:
  *         description: Usuario no encontrado
  */
-routerUsuarios.get("/", (req, res) => {
-  res.json([
-    { id: 1, nombre: "Juan", email: "juan@example.com" },
-    { id: 2, nombre: "María", email: "maria@example.com" }
-  ]);
-});
+routerUsuarios.get("/:id",
+  
+ buscarId 
+);
 
 /**
  * @swagger
@@ -69,8 +67,7 @@ routerUsuarios.get("/", (req, res) => {
  *       400:
  *         description: Error en los datos
  */
-routerUsuarios.post("/",(req, res) => {
-    res.status(201).json({ mensaje: "Usuario creado" })});
+routerUsuarios.post("/",crear)
 
 /**
  * @swagger

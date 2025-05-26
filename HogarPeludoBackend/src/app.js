@@ -1,109 +1,81 @@
-import express from "express";
-import session from "express-session";
-import Keycloak from "keycloak-connect";
-import fs from "fs";
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
-import cors from "cors";
-import swaggerJSDoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
-
+import express from 'express';
+import cors from 'cors';
+import admin from 'firebase-admin';
+import fs from 'fs';
 import { db } from "./database/conexion.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// 🧠 Rutas de tus módulos
 import { routerUsuarios } from "./rutas/usuariosRouter.js";
 import { routerMascotas } from "./rutas/mascotasRouter.js";
 import { routerSolicitud } from "./rutas/SolicitudesRouter.js";
-import { routerRefugios } from "./rutas/refugiosRouter.js"; 
+import { routerRefugios } from "./rutas/refugiosRouter.js";
 import { routerVisitas } from "./rutas/visitasRouter.js";
 import { routerVoluntarios } from "./rutas/voluntariosRouter.js";
 
-// 📂 Rutas de archivo
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
-// 🚀 App Express
+// 🔐 Inicializar Firebase Admin
+const serviceAccountPath = path.join(__dirname, 'config', 'hogarpeludo-71903-firebase-adminsdk-fbsvc-5f40218be4.json');
+const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+// 🚦 Middlewares para autenticación y roles
+const verificarToken = async (req, res, next) => {
+
+  console.log("verificar toquen")
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Token no proporcionado' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  console.log('🔐 Token recibido:', token); // <-- Aquí ves si el token llega
+
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    console.log('✅ Token decodificado:', decodedToken); // <-- Aquí ves si Firebase lo reconoce
+    req.user = decodedToken;
+    next();
+  } catch (error) {
+    console.error('❌ Error al verificar token:', error);
+    return res.status(403).json({ error: 'Token inválido' });
+  }
+};
+
+
+const verificarAdmin = (req, res, next) => {
+  console.log("verificar admin")
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Acceso denegado: Se requiere rol admin' });
+  }
+  next();
+};
+
+// 🚀 App setup
 const app = express();
-
-// 🔐 Configurar sesión y Keycloak
-const keycloakConfig = JSON.parse(
-  fs.readFileSync(join(__dirname, "keycloak.json"), "utf-8")
-);
-const memoryStore = new session.MemoryStore();
-
 app.use(cors());
 app.use(express.json());
-app.use(session({
-  secret: 'clave-super-secreta',
-  resave: false,
-  saveUninitialized: true,
-  store: memoryStore
-}));
 
-const keycloak = new Keycloak({ store: memoryStore }, keycloakConfig);
-app.use(keycloak.middleware());
+// ✅ Rutas protegidas según rol
+app.use('/usuarios', verificarToken, verificarAdmin, routerUsuarios);
+app.use('/voluntarios', verificarToken, verificarAdmin, routerVoluntarios);
+app.use('/mascotas', verificarToken, verificarAdmin, routerMascotas);
+app.use('/refugios', verificarToken, verificarAdmin,routerRefugios);
 
-// 📄 Swagger Docs
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "API de Hogar Peludo",
-      version: "1.0.0",
-      description: "Documentación de la API de gestión de adopciones, refugios y voluntarios",
-    },
-  },
-  apis: [join(__dirname, "rutas/*.js")],
-};
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// 🌐 Ruta pública
-app.get("/", (req, res) => {
-  res.send("Hola Sitio Principal");
+// 🟢 Ruta pública opcional
+app.get('/', (req, res) => {
+  res.send('API funcionando');
 });
 
-function verificarTokenBearer(req, res, next) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Token no proporcionado o inválido" });
-  }
 
-
-  keycloak.grantManager
-    .validateAccessToken(token)
-    .then((isValid) => {
-      if (!isValid) {
-        return res.status(401).json({ error: "Token inválido" });
-      }
-      // También puedes decodificar si quieres saber quién es
-      return keycloak.grantManager.userInfo(token).then((userInfo) => {
-        req.user = userInfo;
-        next();
-      });
-    })
-    .catch((err) => {
-      console.error("Error al validar token:", err);
-      return res.status(401).json({ error: "Error al validar token" });
-    });
-}
-// 🔐 Ruta protegida
-app.use("/usuarios",verificarTokenBearer, routerUsuarios);
-
-// 🌐 Rutas sin protección
-app.use("/mascotas", routerMascotas);
-app.use("/refugios", routerRefugios);
-app.use("/visitas", routerVisitas);
-app.use("/voluntarios", routerVoluntarios);
-app.use("/solicitud", routerSolicitud);
-
-// ⚠️ Middleware de manejo de errores
-app.use((err, req, res, next) => {
-  console.error("❌ Error capturado por middleware:", err);
-  if (err.name === "AccessDeniedError") {
-    return res.status(403).json({ error: "Acceso denegado (403) - No autorizado" });
-  }
-  return res.status(500).json({ error: "Error interno del servidor" });
-});
 
 // 🚀 Inicializar DB y servidor
 const PORT = 3000;
@@ -118,15 +90,6 @@ db.authenticate()
       console.log(`📄 Documentación en http://localhost:${PORT}/api-docs`);
     });
   })
-  .catch((err) => {
-    console.error("❌ Error de conexión o sincronización:", err);
-  });
-  app.get("/check-token", keycloak.protect(), (req, res) => {
-  res.json({
-    message: "Token válido",
-    user: req.kauth.grant.access_token.content
-  });
-});
-
+  
 
 
