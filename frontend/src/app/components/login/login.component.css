@@ -1,11 +1,9 @@
-/* Fondo blanco en toda la pantalla */
 body {
   background-color: #ffffff;
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
-/* Sección centrada */
 .form-section {
   min-height: 100vh;
   display: flex;
@@ -15,13 +13,16 @@ body {
   background-color: #ffffff;
 }
 
-/* Contenedor del formulario */
 .form-container {
   width: 100%;
   max-width: 550px;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.6s ease;
 }
 
-/* Encabezado */
 .highlight-box {
   background-color: #e0f0ff;
   padding: 20px;
@@ -29,7 +30,6 @@ body {
   border-radius: 8px;
 }
 
-/* Formulario */
 .text-box {
   background-color: #ffffff;
   padding: 30px;
@@ -38,7 +38,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Etiquetas y campos */
 .form-group {
   margin-bottom: 20px;
 }
@@ -66,7 +65,6 @@ label {
   box-shadow: 0 0 5px rgba(90, 155, 212, 0.4);
 }
 
-/* Botón */
 .btn-registro {
   background-color: #5a9bd4;
   color: white;
@@ -85,12 +83,7 @@ label {
 body {
   background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
 }
-.form-container {
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -102,9 +95,6 @@ body {
   }
 }
 
-.form-container {
-  animation: fadeInUp 0.6s ease;
-}
 .input-icon {
   position: relative;
 }
@@ -118,5 +108,25 @@ body {
 }
 
 .input-icon input {
-  padding-left: 40px; /* espacio para el ícono */
+  padding-left: 40px;
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
