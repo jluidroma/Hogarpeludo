@@ -8,6 +8,8 @@ import { RefugioModel } from '../../../shared/models/refugio.model';
 import { RefugioService } from '../../../shared/services/refugio.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { NotificacionService } from '../../../shared/notificacion.service';
+
 @Component({
   selector: 'app-add-mascota',
   standalone: true,
@@ -29,10 +31,13 @@ refugios: Observable<RefugioModel[]> | undefined;
   }
   mascota=new MascotaModel('','','','','','','','','');
   refugio=new RefugioModel('','','','','');
+
+
   //pasa dos parametros al constructor  el parametro ruta me permite capturar la ruta activa en el momento
   constructor(
     private mascotaService: MascotaService, private route:ActivatedRoute, private router: Router,
-    private refugioSerice: RefugioService
+    private refugioSerice: RefugioService,
+    private notiService:NotificacionService
   ){
       
   }
@@ -50,8 +55,7 @@ refugios: Observable<RefugioModel[]> | undefined;
       this.mascotaService.obtenerMascota(this.id).subscribe({
         next: data=>{
           console.log(data);
-          this.mascota=data;
-          console.log(this.mascota);
+          this.mascota=data
         },
         error: err=>{
           console.log(`Error ${err}`);
@@ -72,6 +76,10 @@ refugios: Observable<RefugioModel[]> | undefined;
         next: data=>{
           console.log(data);
           this.router.navigate(['/mascotas/']);
+          this.notiService.mostrar('success',data.mensaje)
+          
+          
+
         },
         error: err=>{
           console.log(`Error al actualizar ${err}`);
@@ -85,6 +93,8 @@ refugios: Observable<RefugioModel[]> | undefined;
         next: data=>{
           console.log(data);
           this.router.navigate(['/mascotas']);
+          this.notiService.mostrar('success',data.mensaje)
+
         },
         error: err=>{
           console.log(`Error al Agregar ${err}`);

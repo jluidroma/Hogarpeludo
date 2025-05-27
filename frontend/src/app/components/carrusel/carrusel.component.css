@@ -1,0 +1,58 @@
+.carousel-container {
+  height: 400px;
+  overflow: hidden;
+}
+
+.carousel-inner img {
+  height: 400px;
+  object-fit: cover;
+  filter: brightness(60%); /* efecto de oscurecer para que el texto resalte */
+}
+
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.3); /* opcional: capa semitransparente */
+}
+
+.carousel-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+}
+
+.carousel-text {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
+.carousel-button {
+  background-color: #facc15;
+  color: #1f2937;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.carousel-button:hover {
+  background-color: #fbbf24;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}

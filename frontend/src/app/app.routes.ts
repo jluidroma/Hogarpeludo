@@ -6,6 +6,8 @@ import { AddMascotaComponent } from './components/mascotas/add-mascota/add-masco
 import { ListMascotasComponent } from './components/mascotas/list-mascotas/list-mascotas.component';
 import { ListRefugioComponent } from './components/Refugios/list-refugio/list-refugio.component';
 import { AddRefugioComponent } from './components/Refugios/add-refugio/add-refugio.component';
+import { AddVoluntarioComponent } from './components/Voluntarios/add-voluntario/add-voluntario.component';
+import { ListVoluntarioComponent } from './components/Voluntarios/list-voluntario/list-voluntario.component';
 
 export const routes: Routes = [
      {
@@ -35,6 +37,18 @@ export const routes: Routes = [
      {
           path:"refugios/edit/:id",
           component: AddRefugioComponent
+     },
+     {
+          path:"voluntarios",
+          component: ListVoluntarioComponent
+     },
+     {
+          path:"voluntarios/add",
+          component: AddVoluntarioComponent
+     },
+     {
+          path: "voluntarios/edit/:id",
+          component: AddVoluntarioComponent
      },
      {
           path:"registro",

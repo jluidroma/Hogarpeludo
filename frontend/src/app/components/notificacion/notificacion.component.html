@@ -1,0 +1,21 @@
+<div class="overlay">
+  <div class="modal" [ngClass]="tipo">
+    <div class="header">
+      <span class="titulo">{{ tipo | titlecase }}</span>
+      <button class="cerrar" (click)="cerrar()">✖</button>
+    </div>
+    <div class="contenido">
+      <i class="icono" [ngClass]="{
+        'fa fa-check-circle': tipo === 'success',
+        'fa fa-times-circle': tipo === 'error',
+        'fa fa-exclamation-circle': tipo === 'warning',
+        'fa fa-info-circle': tipo === 'info'
+      }"></i>
+      <p>{{ mensaje }}</p>
+    </div>
+    <div class="acciones">
+      <button (click)="cerrar()">Aceptar</button>
+    </div>
+  </div>
+</div>
+

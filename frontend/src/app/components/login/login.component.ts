@@ -28,7 +28,7 @@ export class LoginComponent {
     .then(async userCredential => {
       this.successMessage = '¡Ingreso exitoso!';
       console.log('Login exitoso:', userCredential);
-
+      
       // Obtener el token JWT
       const token = await userCredential.user.getIdToken();
       console.log('Token de ID de Firebase:', token);

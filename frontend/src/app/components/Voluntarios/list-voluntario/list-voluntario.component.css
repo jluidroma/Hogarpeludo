@@ -1,0 +1,110 @@
+.card {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  border-left: 5px solid #6366f1;
+  align-items: center; /* centrado vertical en pantallas grandes */
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.avatar-container {
+  width: 144px;
+  height: 144px;
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 4px solid #c7d2fe; /* indigo-200 */
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 9999px;
+}
+
+.btn-delete {
+  background-color: #f87171; /* red-400 */
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+  background-color: #ef4444; /* red-500 */
+}
+
+.btn-edit {
+  background-color: #60a5fa; /* blue-400 */
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+  background-color: #3b82f6; /* blue-500 */
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .card .flex-1 {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .card .flex-col {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+.btn-agregar {
+  background-color: #109848;
+  color: white;
+  padding: 0.6rem 1.4rem;
+  border-radius: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 8px rgba(22, 185, 147, 0.3);
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.btn-agregar:hover {
+  background-color: hsl(161, 90%, 39%);
+  box-shadow: 0 8px 20px rgba(6, 203, 88, 0.5);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.btn-agregar:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 10px rgba(12, 182, 105, 0.4);
+}
+
+.btn-agregar i {
+  font-size: 1.2rem;
+}

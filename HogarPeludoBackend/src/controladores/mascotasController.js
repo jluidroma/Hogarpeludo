@@ -31,11 +31,13 @@ const crear = (req,res)=>{
 //Usuar Sequelize para crear el recurso en la base de datos
      mascotas.create(dataset).then((resultado)=>{
           res.status(200).json({
-               mensaje: "Registro de Mascota Creado con Exito"
+               mensaje: "Registro de Mascota Creado con Exito",
+               status:200
           });
      }).catch((err)=>{
           res.status(500).json({
-               mensaje: `Registro de Mascota No creado ::: ${err}`
+               mensaje: `Registro de Mascota No creado ::: ${err}`,
+               status:500
           });
      });
 }
@@ -46,7 +48,8 @@ mascotas.findAll().then((resultado)=>{
      res.status(200).json(resultado);
 }).catch((err)=>{
      res.status(500).json({
-          mensaje:`No se encontraron registros ::: ${err}`
+          mensaje:`No se encontraron registros ::: ${err}`,
+          status:500
      });
 });
 }

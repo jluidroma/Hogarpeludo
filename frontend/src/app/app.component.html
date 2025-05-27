@@ -2,4 +2,12 @@
 <app-carrusel />
 <router-outlet />
 <app-footer />
+<app-notificacion
+  *ngIf="notificacion"
+  [tipo]="notificacion.tipo"
+  [mensaje]="notificacion.mensaje"
+  (cerrarNotificacion)="cerrarNoti()">
+</app-notificacion>
+
+
 

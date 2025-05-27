@@ -19,7 +19,7 @@ const routerUsuarios = express.Router();
  *       200:
  *         description: Lista de usuarios
  */
-routerUsuarios.get("/", buscar);
+//routerUsuarios.get("/", buscar);
 
 /**
  * @swagger

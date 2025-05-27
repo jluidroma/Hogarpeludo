@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MascotaModel } from '../models/mascota.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -26,18 +28,20 @@ export class MascotaService {
     return this.http.get<MascotaModel>(`${this.BASE_URL}/mascotas/${idMascota}`, { headers });
   }
 
-  agregarMascotas(mascota: MascotaModel) {
+  //agregar una mascota
+  //le pasamos como parametro un objeto mascota de tipo MascotaModel
+  agregarMascotas(mascota:MascotaModel):Observable<{ mensaje: string, status: number }>{
     const headers = this.getAuthHeaders();
-    return this.http.post<string>(`${this.BASE_URL}/mascotas/`, mascota, { headers });
+    return this.http.post<{ mensaje: string, status: number }>(`${this.BASE_URL}/mascotas/`,mascota, { headers })
   }
-
-  actualizarMascota(mascota: MascotaModel) {
+  //actualizar mascota
+  actualizarMascota(mascota:MascotaModel):Observable<{ mensaje: string, status: number }>{
     const headers = this.getAuthHeaders();
-    return this.http.put<string>(`${this.BASE_URL}/mascotas/${mascota.id}`, mascota, { headers });
+    return this.http.put<{ mensaje: string, status: number }>(`${this.BASE_URL}/mascotas/${mascota.id}`,mascota, { headers })
   }
-
-  eliminarMascota(idmascota: string) {
+  //eliminar mascota
+  eliminarMascota(idmascota:string):Observable<{ mensaje: string, status: number }>{
     const headers = this.getAuthHeaders();
-    return this.http.delete<string>(`${this.BASE_URL}/mascotas/${idmascota}`, { headers });
+    return this.http.delete<{ mensaje: string, status: number }>(`${this.BASE_URL}/mascotas/${idmascota}`, { headers })
   }
 }

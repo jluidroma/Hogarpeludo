@@ -30,6 +30,10 @@ const voluntarios = db.define("voluntarios",{
           type: Sequelize.STRING, 
           allowNull: true
      },
+     imagenUrl: {
+     type: Sequelize.STRING, 
+     allowNull: true
+     },
      id_refugio:{
           type:Sequelize.INTEGER,
           allowNull: true,

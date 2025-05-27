@@ -28,8 +28,6 @@ admin.initializeApp({
 
 // 🚦 Middlewares para autenticación y roles
 const verificarToken = async (req, res, next) => {
-
-  console.log("verificar toquen")
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -52,7 +50,6 @@ const verificarToken = async (req, res, next) => {
 
 
 const verificarAdmin = (req, res, next) => {
-  console.log("verificar admin")
   if (req.user.role !== 'admin') {
     return res.status(403).json({ error: 'Acceso denegado: Se requiere rol admin' });
   }

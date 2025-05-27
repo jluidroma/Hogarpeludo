@@ -1,0 +1,65 @@
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl">
+  <h2 class="text-3xl font-bold text-center text-indigo-600 mb-6">{{opcion}}</h2>
+
+  <form (ngSubmit)="onSubmit()" #formVoluntario="ngForm" class="space-y-5">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-semibold mb-1">Nombre</label>
+        <input type="text" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.nombre" name="nombre" />
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">Apellido</label>
+        <input type="text" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.apellido" name="apellido" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-semibold mb-1">Correo Electrónico</label>
+        <input type="email" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.email" name="email" />
+      </div>
+      <div>
+        <label class="block font-semibold mb-1">Teléfono</label>
+        <input type="tel" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.telefono" name="telefono" />
+      </div>
+    </div>
+
+    <div>
+      <label class="block font-semibold mb-1">Disponibilidad</label>
+      <select class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.disponibilidad" name="disponibilidad">
+        <option value="">Seleccione disponibilidad</option>
+        <option value="Mañana">Mañana</option>
+        <option value="Tarde">Tarde</option>
+        <option value="Completa">Completa</option>
+      </select>
+    </div>
+
+    <!-- Campo nuevo: URL de imagen -->
+    <div>
+      <label class="block font-semibold mb-1">URL de Imagen</label>
+      <input 
+        type="text" 
+        class="w-full border rounded-xl px-4 py-2" 
+        [(ngModel)]="voluntario.imagenUrl" 
+        name="imagenUrl" 
+        placeholder="https://ejemplo.com/imagen.jpg" />
+    </div>
+
+    <div class="espacio-final">
+      <label class="block font-semibold mb-1">Refugio Asociado</label>
+      <select 
+        class="w-full border rounded-xl px-4 py-2" 
+        required 
+        [(ngModel)]="voluntario.id_refugio" 
+        name="id_refugio">
+        <option value="" disabled selected>Seleccione el refugio</option>
+        <option *ngFor="let refugio of refugios | async" [value]="refugio.id">{{refugio.nombre}}</option>
+      </select>
+    </div>
+
+    <button type="submit" [class]="btnEnvEdit.class" [disabled]="!formVoluntario.form.valid">
+      <i [class]="btnEnvEdit.icon"></i> {{btnEnvEdit.mensaje}}
+    </button>
+  </form>
+</div>

@@ -29,6 +29,7 @@ const crear = (req,res)=>{
           email: req.body.email,
           telefono: req.body.telefono,
           disponibilidad: req.body.disponibilidad,
+          imagenUrl: req.body.imagenUrl,
           rol: req.body.id_refugio
      }
 
@@ -97,8 +98,9 @@ else{
      const email= req.body.email;
      const telefono= req.body.telefono;
      const disponibilidad= req.body.disponibilidad
+     const imagenUrl= req.body.imagenUrl
      const id_refugio= req.body.id_refugio
-     voluntarios.update({nombre,apellido,email,telefono,disponibilidad,id_refugio},{where:{id}}).then((resultado)=>{
+     voluntarios.update({nombre,apellido,email,telefono,disponibilidad,imagenUrl,id_refugio},{where:{id}}).then((resultado)=>{
           res.status(200).json({
                tipo: 'success',
                mensaje: "Registro Actualizado"

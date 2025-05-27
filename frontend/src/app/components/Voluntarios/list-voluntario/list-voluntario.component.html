@@ -1,0 +1,41 @@
+<div>
+  <div class="add-list">
+    <h2 class="header-title">{{title}}</h2>
+    <a class="btn btn-success hover-btn" [routerLink]="['/voluntarios/add/']">
+      <i class="bi bi-plus-circle"></i>Agregar voluntario
+    </a>
+  </div>
+</div>
+<div class="container mx-auto mt-10 px-4">
+  <ng-container *ngIf="voluntarios | async as listaVoluntarios">
+    <div *ngFor="let voluntario of listaVoluntarios" class="card flex flex-col md:flex-row items-center gap-6">
+      
+      <!-- Imagen circular centrada a la izquierda -->
+      <div class="avatar-container">
+        <img *ngIf="voluntario.imagenUrl"
+             [src]="voluntario.imagenUrl"
+             alt="{{ voluntario.nombre }}"
+             class="avatar-img" />
+      </div>
+
+      <!-- Información -->
+      <div class="flex-1 text-center md:text-left">
+        <h3 class="text-2xl font-bold text-gray-800 mb-1">{{ voluntario.nombre }} {{ voluntario.apellido }}</h3>
+        <p class="text-gray-600 mb-1"><strong>📧 Correo:</strong> {{ voluntario.email }}</p>
+        <p class="text-gray-600 mb-1"><strong>📞 Teléfono:</strong> {{ voluntario.telefono }}</p>
+        <p class="text-gray-600 mb-1"><strong>🕒 Disponibilidad:</strong> {{ voluntario.disponibilidad }}</p>
+        <p class="text-gray-600"><strong>🏠 Refugio:</strong> {{ voluntario.id }}</p>
+      </div>
+
+      <!-- Botones -->
+      <div class="flex flex-col gap-2 mt-4 md:mt-0">
+        <button (click)="eliminarVoluntario(voluntario.id)" class="btn-delete w-28 self-center md:self-start">
+          <i class="fas fa-trash-alt mr-1"></i> Eliminar
+        </button>
+        <a [routerLink]="['/voluntarios/edit', voluntario.id]" class="btn-edit w-28 text-center self-center md:self-start">
+          <i class="fas fa-edit mr-1"></i> Editar
+        </a>
+      </div>
+    </div>
+  </ng-container>
+</div>
