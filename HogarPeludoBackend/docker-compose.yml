@@ -16,26 +16,12 @@ services:
     networks:
       - hogarpeludo-net
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: keycloak
-    restart: always
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-    ports:
-      - "8080:8080"
-    command: start-dev
-    networks:
-      - hogarpeludo-net
-
   backend:
     build: .
     container_name: node_backend
     restart: always
     depends_on:
       - database
-      - keycloak
     environment:
       DB_HOST: database
       DB_USER: hogarpeludouser

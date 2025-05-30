@@ -19,13 +19,11 @@ export class MascotaService {
   }
 
   obtenerMascotas() {
-    const headers = this.getAuthHeaders();
-    return this.http.get<MascotaModel[]>(`${this.BASE_URL}/mascotas/`, { headers });
+    return this.http.get<MascotaModel[]>(`${this.BASE_URL}/mascotas/`);
   }
 
   obtenerMascota(idMascota: string) {
-    const headers = this.getAuthHeaders();
-    return this.http.get<MascotaModel>(`${this.BASE_URL}/mascotas/${idMascota}`, { headers });
+    return this.http.get<MascotaModel>(`${this.BASE_URL}/mascotas/${idMascota}`);
   }
 
   //agregar una mascota

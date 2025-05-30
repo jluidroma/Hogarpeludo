@@ -1,5 +1,6 @@
 import express from "express";
 import { actualizar, buscar, buscarId, crear, eliminar } from "../controladores/refugiosController.js";
+import { verificarAdmin,verificarToken } from "../middlewares/auth.js";
 
 const routerRefugios = express.Router();
 
@@ -28,9 +29,7 @@ const routerRefugios = express.Router();
  *       400:
  *         description: Error en los datos enviados
  */
-routerRefugios.post("/", (req, res) => {
-  crear(req, res);
-});
+routerRefugios.post("/",verificarToken,verificarAdmin,crear);
 
 /**
  * @swagger
@@ -42,9 +41,7 @@ routerRefugios.post("/", (req, res) => {
  *       200:
  *         description: Lista de refugios obtenida exitosamente
  */
-routerRefugios.get("/", (req, res) => {
-  buscar(req, res);
-});
+routerRefugios.get("/",buscar);
 
 /**
  * @swagger
@@ -65,9 +62,7 @@ routerRefugios.get("/", (req, res) => {
  *       404:
  *         description: Refugio no encontrado
  */
-routerRefugios.get("/:id", (req, res) => {
-  buscarId(req, res);
-});
+routerRefugios.get("/:id",buscarId);
 
 /**
  * @swagger
@@ -98,9 +93,7 @@ routerRefugios.get("/:id", (req, res) => {
  *       400:
  *         description: Error en la solicitud
  */
-routerRefugios.put("/:id", (req, res) => {
-  actualizar(req, res);
-});
+routerRefugios.put("/:id",verificarToken,verificarAdmin,actualizar);
 
 /**
  * @swagger
@@ -120,8 +113,6 @@ routerRefugios.put("/:id", (req, res) => {
  *       404:
  *         description: Refugio no encontrado
  */
-routerRefugios.delete("/:id", (req, res) => {
-  eliminar(req, res);
-});
+routerRefugios.delete("/:id",verificarToken,verificarAdmin, eliminar);
 
 export { routerRefugios };

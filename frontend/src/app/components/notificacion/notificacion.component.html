@@ -1,15 +1,18 @@
-<div class="overlay">
-  <div class="modal" [ngClass]="tipo">
+<div class="overlay" [ngClass]="tipo">
+  <div class="modal">
     <div class="header">
       <span class="titulo">{{ tipo | titlecase }}</span>
-      <button class="cerrar" (click)="cerrar()">✖</button>
+      <button class="cerrar" (click)="cerrar()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
     </div>
     <div class="contenido">
       <i class="icono" [ngClass]="{
-        'fa fa-check-circle': tipo === 'success',
-        'fa fa-times-circle': tipo === 'error',
-        'fa fa-exclamation-circle': tipo === 'warning',
-        'fa fa-info-circle': tipo === 'info'
+        'bi bi-check-circle-fill': tipo === 'success',
+        'bi bi-x-circle-fill': tipo === 'error',
+        'bi bi-exclamation-triangle-fill': tipo === 'warning',
+        'bi bi-info-circle-fill': tipo === 'info'
       }"></i>
       <p>{{ mensaje }}</p>
     </div>
@@ -18,4 +21,3 @@
     </div>
   </div>
 </div>
-

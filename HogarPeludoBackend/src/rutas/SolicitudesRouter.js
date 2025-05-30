@@ -1,5 +1,6 @@
 import express from "express";
 import { crearSolicitud, buscarSolicitud, buscarSolicitudId, actualizarSolicitud, eliminarSolicitud } from "../controladores/solicitudesController.js";
+import { verificarAdmin,verificarToken } from "../middlewares/auth.js";
 
 const routerSolicitud = express.Router();
 
@@ -35,9 +36,7 @@ const routerSolicitud = express.Router();
  *       400:
  *         description: Datos incorrectos o incompletos
  */
-routerSolicitud.post("/:id_mascota", (req, res) => {
-    crearSolicitud(req, res);
-});
+routerSolicitud.post("/:id_mascota",verificarToken,verificarAdmin, crearSolicitud);
 
 /**
  * @swagger
@@ -49,9 +48,7 @@ routerSolicitud.post("/:id_mascota", (req, res) => {
  *       200:
  *         description: Lista de solicitudes obtenida correctamente
  */
-routerSolicitud.get("/", (req, res) => {
-    buscarSolicitud(req, res);
-});
+routerSolicitud.get("/", buscarSolicitud);
 
 /**
  * @swagger
@@ -72,9 +69,7 @@ routerSolicitud.get("/", (req, res) => {
  *       404:
  *         description: Solicitud no encontrada
  */
-routerSolicitud.get("/:id", (req, res) => {
-    buscarSolicitudId(req, res);
-});
+routerSolicitud.get("/:id",verificarToken,verificarAdmin, buscarSolicitudId);
 
 /**
  * @swagger
@@ -108,9 +103,7 @@ routerSolicitud.get("/:id", (req, res) => {
  *       400:
  *         description: Error en la solicitud
  */
-routerSolicitud.put("/:id", (req, res) => {
-    actualizarSolicitud(req, res);
-});
+routerSolicitud.put("/:id",verificarToken,verificarAdmin, actualizarSolicitud);
 
 /**
  * @swagger
@@ -131,8 +124,6 @@ routerSolicitud.put("/:id", (req, res) => {
  *       404:
  *         description: Solicitud no encontrada
  */
-routerSolicitud.delete("/:id", (req, res) => {
-    eliminarSolicitud(req, res);
-});
+routerSolicitud.delete("/:id",verificarToken,verificarAdmin, eliminarSolicitud);
 
 export { routerSolicitud };

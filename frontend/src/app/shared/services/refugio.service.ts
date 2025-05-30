@@ -20,13 +20,12 @@ export class RefugioService {
     //definir los metodos para acceder a mi backend es decir al CRUD
     //trae todas los refugios de mi db
     obtenerRefugios(){
-        const headers = this.getAuthHeaders();
-        return this.http.get<RefugioModel[]>(`${this.BASE_URL}/refugios/`,{ headers });
+
+        return this.http.get<RefugioModel[]>(`${this.BASE_URL}/refugios/`);
     }
     //buscar una refugio por id
     obtenerrefugio(idrefugio:string){
-      const headers = this.getAuthHeaders();
-      return this.http.get<RefugioModel>(`${this.BASE_URL}/refugios/${idrefugio}`,{ headers});
+      return this.http.get<RefugioModel>(`${this.BASE_URL}/refugios/${idrefugio}`);
     }
   
     //agregar una refugio

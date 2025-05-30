@@ -2,7 +2,7 @@ import { refugios } from "../modelos/refugioModelo.js";
 
 //Crear un recurso refugios
 const crear = (req,res)=>{
-
+     console.log("llega a crear")
     //Validar 
      if(!req.body.nombre){
           res.status(400).send({ mensaje: "El nombre no puede estar vacio."});

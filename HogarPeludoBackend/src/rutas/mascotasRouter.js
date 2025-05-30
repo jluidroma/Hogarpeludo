@@ -1,5 +1,6 @@
 import express from "express";
 import { actualizar, buscar, buscarId, crear, eliminar } from "../controladores/mascotasController.js";
+import { verificarAdmin,verificarToken } from "../middlewares/auth.js";
 
 const routerMascotas = express.Router();
 
@@ -28,7 +29,7 @@ const routerMascotas = express.Router();
  *       400:
  *         description: Error en los datos enviados
  */
-routerMascotas.post("/", crear);
+routerMascotas.post("/",verificarToken,verificarAdmin, crear);
 
 /**
  * @swagger
@@ -61,7 +62,7 @@ routerMascotas.get("/", buscar);
  *       404:
  *         description: Mascota no encontrada
  */
-routerMascotas.get("/:id", buscarId);
+routerMascotas.get("/:id",verificarToken,verificarAdmin, buscarId);
 
 /**
  * @swagger
@@ -92,7 +93,7 @@ routerMascotas.get("/:id", buscarId);
  *       400:
  *         description: Error en la solicitud
  */
-routerMascotas.put("/:id", actualizar);
+routerMascotas.put("/:id",verificarToken,verificarAdmin, actualizar);
 
 /**
  * @swagger
@@ -112,6 +113,6 @@ routerMascotas.put("/:id", actualizar);
  *       404:
  *         description: Mascota no encontrada
  */
-routerMascotas.delete("/:id", eliminar);
+routerMascotas.delete("/:id",verificarToken,verificarAdmin, eliminar);
 
 export { routerMascotas };

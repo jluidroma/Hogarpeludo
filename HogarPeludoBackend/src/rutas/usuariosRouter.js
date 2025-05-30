@@ -1,11 +1,7 @@
 import express from "express";
 import {
-    actualizar,
-    buscar,
-    buscarId,
-    crear,
-    eliminar
-} from "../controladores/usuariosController.js";
+    actualizar,buscar,buscarId,crear,eliminar} from "../controladores/usuariosController.js";
+import { verificarAdmin,verificarToken } from "../middlewares/auth.js";
 
 const routerUsuarios = express.Router();
 
@@ -19,7 +15,7 @@ const routerUsuarios = express.Router();
  *       200:
  *         description: Lista de usuarios
  */
-//routerUsuarios.get("/", buscar);
+routerUsuarios.get("/", buscar);
 
 /**
  * @swagger
@@ -39,10 +35,7 @@ const routerUsuarios = express.Router();
  *       404:
  *         description: Usuario no encontrado
  */
-routerUsuarios.get("/:id",
-  
- buscarId 
-);
+routerUsuarios.get("/:id",verificarToken,verificarAdmin,buscarId);
 
 /**
  * @swagger
@@ -67,7 +60,7 @@ routerUsuarios.get("/:id",
  *       400:
  *         description: Error en los datos
  */
-routerUsuarios.post("/",crear)
+routerUsuarios.post("/",verificarToken,verificarAdmin,crear)
 
 /**
  * @swagger
@@ -98,7 +91,7 @@ routerUsuarios.post("/",crear)
  *       400:
  *         description: Error de validación
  */
-routerUsuarios.put("/:id", actualizar);
+routerUsuarios.put("/:id",verificarToken,verificarAdmin, actualizar);
 
 /**
  * @swagger
@@ -118,6 +111,6 @@ routerUsuarios.put("/:id", actualizar);
  *       404:
  *         description: Usuario no encontrado
  */
-routerUsuarios.delete("/:id", eliminar);
+routerUsuarios.delete("/:id",verificarToken,verificarAdmin, eliminar);
 
 export { routerUsuarios };

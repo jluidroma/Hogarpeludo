@@ -1,5 +1,6 @@
 import express from "express";
 import {actualizar,buscar,buscarId,crear,eliminar} from "../controladores/voluntariosController.js";
+import { verificarAdmin,verificarToken } from "../middlewares/auth.js";
 
 const routerVoluntarios = express.Router();
 
@@ -28,9 +29,7 @@ const routerVoluntarios = express.Router();
  *       400:
  *         description: Error en los datos enviados
  */
-routerVoluntarios.post("/",(req,res)=>{
-     crear(req,res);
-});
+routerVoluntarios.post("/",verificarToken,verificarAdmin,crear);
 
 /**
  * @swagger
@@ -42,9 +41,7 @@ routerVoluntarios.post("/",(req,res)=>{
  *       200:
  *         description: Lista de voluntarios
  */
-routerVoluntarios.get("/",(req,res)=>{
-     buscar(req,res);
-});
+routerVoluntarios.get("/",buscar);
 
 /**
  * @swagger
@@ -65,9 +62,7 @@ routerVoluntarios.get("/",(req,res)=>{
  *       404:
  *         description: Voluntario no encontrado
  */
-routerVoluntarios.get("/:id",(req,res)=>{
-     buscarId(req,res);
-});
+routerVoluntarios.get("/:id",buscarId);
 
 /**
  * @swagger
@@ -98,9 +93,7 @@ routerVoluntarios.get("/:id",(req,res)=>{
  *       400:
  *         description: Error en la solicitud
  */
-routerVoluntarios.put("/:id",(req,res)=>{
-     actualizar(req,res);
-});
+routerVoluntarios.put("/:id",verificarToken,verificarAdmin,actualizar);
 
 /**
  * @swagger
@@ -120,8 +113,6 @@ routerVoluntarios.put("/:id",(req,res)=>{
  *       404:
  *         description: Voluntario no encontrado
  */
-routerVoluntarios.delete("/:id",(req,res)=>{
-     eliminar(req,res);
-})
+routerVoluntarios.delete("/:id",verificarToken,verificarAdmin,eliminar)
 
 export {routerVoluntarios};

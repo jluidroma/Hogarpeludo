@@ -1,5 +1,6 @@
 import express from "express";
 import { actualizar, buscar, buscarId, crear, eliminar } from "../controladores/visitasController.js";
+import { verificarAdmin,verificarToken } from "../middlewares/auth.js";
 
 const routerVisitas = express.Router();
 
@@ -27,9 +28,7 @@ const routerVisitas = express.Router();
  *       400:
  *         description: Datos incorrectos o incompletos
  */
-routerVisitas.post("/", (req, res) => {
-    crear(req, res);
-});
+routerVisitas.post("/",verificarToken,verificarAdmin,crear);
 
 /**
  * @swagger
@@ -41,9 +40,7 @@ routerVisitas.post("/", (req, res) => {
  *       200:
  *         description: Lista de visitas obtenida correctamente
  */
-routerVisitas.get("/", (req, res) => {
-    buscar(req, res);
-});
+routerVisitas.get("/",buscar);
 
 /**
  * @swagger
@@ -64,9 +61,7 @@ routerVisitas.get("/", (req, res) => {
  *       404:
  *         description: Visita no encontrada
  */
-routerVisitas.get("/:id", (req, res) => {
-    buscarId(req, res);
-});
+routerVisitas.get("/:id",verificarToken,verificarAdmin,buscarId);
 
 /**
  * @swagger
@@ -99,9 +94,7 @@ routerVisitas.get("/:id", (req, res) => {
  *       400:
  *         description: Error en la solicitud
  */
-routerVisitas.put("/:id", (req, res) => {
-    actualizar(req, res);
-});
+routerVisitas.put("/:id",verificarToken,verificarAdmin,actualizar);
 
 /**
  * @swagger
@@ -122,8 +115,6 @@ routerVisitas.put("/:id", (req, res) => {
  *       404:
  *         description: Visita no encontrada
  */
-routerVisitas.delete("/:id", (req, res) => {
-    eliminar(req, res);
-});
+routerVisitas.delete("/:id",verificarToken,verificarAdmin,eliminar);
 
 export { routerVisitas };

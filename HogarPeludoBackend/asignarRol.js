@@ -18,7 +18,7 @@ admin.initializeApp({
 });
 
 // UID del usuario al que quieres asignar el rol
-const uid = 'LoXSlqmrtkepfu3Oo0HqTmksUQu1'; // 🔁 Reemplaza esto con el UID real
+const uid = '92ssSzaRdDScJsRIkKCoPXsjGnD2'; 
 
 admin.auth().setCustomUserClaims(uid, { role: 'admin' })
   .then(() => {

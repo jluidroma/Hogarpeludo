@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VoluntarioModel } from '../models/voluntario.model';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,11 @@ export class VoluntarioService {
   //se le pasa un parametro http de tipo httClient
   //proporciona las capacidades para conectarse al backend
   constructor(private http:HttpClient) {}
+
+  private getAuthHeaders() {
+    const token = localStorage.getItem('firebaseToken') || '';
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
   //definir los metodos para acceder a mi backend es decir al CRUD
     //trae todas las voluntarios de mi db
     obtenerVoluntarios(){
@@ -23,15 +29,18 @@ export class VoluntarioService {
     //agregar una voluntario
     //le pasamos como parametro un objeto voluntario de tipo VoluntarioModel
     agregarVoluntario(voluntario:VoluntarioModel){
-      return this.http.post<string>(`${this.BASE_URL}/voluntarios/`,voluntario)
+      const headers = this.getAuthHeaders();
+      return this.http.post<string>(`${this.BASE_URL}/voluntarios/`,voluntario, { headers })
     }
     //actualizar voluntario
     actualizarVoluntario(voluntario:VoluntarioModel){
-      return this.http.put<string>(`${this.BASE_URL}/voluntarios/${voluntario.id}`,voluntario)
+      const headers = this.getAuthHeaders();
+      return this.http.put<string>(`${this.BASE_URL}/voluntarios/${voluntario.id}`,voluntario, { headers })
     }
     //eliminar voluntario
     eliminarVoluntario(idvoluntario:string){
-      return this.http.delete<string>(`${this.BASE_URL}/voluntarios/${idvoluntario}`)
+      const headers = this.getAuthHeaders();
+      return this.http.delete<string>(`${this.BASE_URL}/voluntarios/${idvoluntario}`, { headers })
     }
 
 }
