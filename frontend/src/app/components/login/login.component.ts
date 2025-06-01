@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/auth-service.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -19,38 +21,49 @@ export class LoginComponent {
 
   private auth = inject(Auth);
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   login() {
-  this.successMessage = '';
-  this.errorMessage = '';
+    this.successMessage = '';
+    this.errorMessage = '';
 
-  signInWithEmailAndPassword(this.auth, this.email, this.password)
-    .then(async userCredential => {
-      this.successMessage = '¡Ingreso exitoso!';
-      console.log('Login exitoso:', userCredential);
-      
-      // Obtener el token JWT
-      const token = await userCredential.user.getIdToken();
-      console.log('Token de ID de Firebase:', token);
+    signInWithEmailAndPassword(this.auth, this.email, this.password)
+      .then(async userCredential => {
+        this.successMessage = '¡Ingreso exitoso!';
 
-      // Aquí puedes almacenar el token para usarlo en tu app o enviar al backend
-      // Por ejemplo:
-      localStorage.setItem('firebaseToken', token);
+        // Obtener el token JWT
+        const token = await userCredential.user.getIdToken();
 
-      // Luego rediriges a la página principal o donde quieras
-      setTimeout(() => {
-        this.router.navigate(['/mascotas']);
-      }, 2000);
-    })
-    .catch(error => {
-      console.error('Error de login:', error);
-      if (error.code === 'auth/user-not-found') {
-        this.errorMessage = 'Usuario no existe.';
-      } else if (error.code === 'auth/wrong-password') {
-        this.errorMessage = 'Contraseña incorrecta.';
-      } else {
-        this.errorMessage = 'Error al iniciar sesión. Por favor, intenta de nuevo.';
-      }
-    });
-}
+        // Verificar si estamos en el navegador
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('firebaseToken', token);
+        }
+
+        // Decodificar token
+        const decoded: any = jwtDecode(token);
+        console.log('Token decodificado:', decoded);
+
+        // Extraer el rol desde las posibles ubicaciones del token
+        const role = decoded.role || decoded['custom:role'] || decoded['https://yourapp.com/roles'] || null;
+        console.log('Rol desde token:', role);
+
+        // Guardar rol en el servicio (este ya verifica el entorno internamente)
+        this.authService.setUserRole(role);
+
+        // Redirigir tras 1 segundo
+        setTimeout(() => {
+          this.router.navigate(['/mascotas']);
+        }, 1000);
+      })
+      .catch(error => {
+        console.error('Error de login:', error);
+        if (error.code === 'auth/user-not-found') {
+          this.errorMessage = 'Usuario no existe.';
+        } else if (error.code === 'auth/wrong-password') {
+          this.errorMessage = 'Contraseña incorrecta.';
+        } else {
+          this.errorMessage = 'Error al iniciar sesión. Por favor, intenta de nuevo.';
+        }
+      });
+  }
 }

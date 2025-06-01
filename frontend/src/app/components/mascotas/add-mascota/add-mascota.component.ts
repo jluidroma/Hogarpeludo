@@ -9,6 +9,7 @@ import { RefugioService } from '../../../shared/services/refugio.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NotificacionService } from '../../../shared/notificacion.service';
+import { AuthService } from '../../../shared/auth-service.service';
 
 @Component({
   selector: 'app-add-mascota',
@@ -29,6 +30,7 @@ refugios: Observable<RefugioModel[]> | undefined;
     class:'',
     icon:''
   }
+  public isAdmin = false;
   mascota=new MascotaModel('','','','','','','','','');
   refugio=new RefugioModel('','','','','');
 
@@ -37,11 +39,15 @@ refugios: Observable<RefugioModel[]> | undefined;
   constructor(
     private mascotaService: MascotaService, private route:ActivatedRoute, private router: Router,
     private refugioSerice: RefugioService,
-    private notiService:NotificacionService
+    private notiService:NotificacionService,
+    public authService: AuthService
   ){
       
   }
   ngOnInit(){
+    this.authService.userRole$.subscribe(role => {
+      this.isAdmin = role === 'admin';
+    });
     console.log(`la ruta actual es: ${this.route}`)
     this.id=this.route.snapshot.params['id'];
     console.log(`El id de mascota es ${this.id}`);

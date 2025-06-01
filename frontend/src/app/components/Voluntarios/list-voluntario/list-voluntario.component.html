@@ -1,7 +1,7 @@
 <div>
   <div class="add-list">
     <h2 class="header-title">{{title}}</h2>
-    <a class="btn btn-success hover-btn" [routerLink]="['/voluntarios/add/']">
+    <a class="btn btn-success hover-btn" [routerLink]="['/voluntarios/add/']" *ngIf="authService.isAdmin()">
       <i class="bi bi-plus-circle"></i>Agregar voluntario
     </a>
   </div>
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Botones -->
-      <div class="flex flex-col gap-2 mt-4 md:mt-0">
+      <div class="flex flex-col gap-2 mt-4 md:mt-0" *ngIf="authService.isAdmin()">
         <button (click)="eliminarVoluntario(voluntario.id)" class="btn-delete w-28 self-center md:self-start">
           <i class="fas fa-trash-alt mr-1"></i> Eliminar
         </button>

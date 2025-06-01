@@ -2,7 +2,7 @@
 <div>
   <div class="add-list">
     <h2 class="header-title">Nuestras Mascotas</h2>
-    <a class="btn btn-success hover-btn" [routerLink]="['/mascotas/add/']">
+    <a class="btn btn-success hover-btn" [routerLink]="['/mascotas/add/']" *ngif="authService.isAdmin()">
       <i class="bi bi-plus-circle"></i>Agregar Mascota
     </a>
   </div>
@@ -18,7 +18,7 @@
         <h6>Sexo: {{ mascota.sexo }}</h6>
         <h6>Tamaño: {{ mascota.talla }}</h6>
         
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between" *ngIf="authService.isAdmin()">
           <a class="btn btn-primary flex-grow-1 me-2 hover-btn" [routerLink]="['/mascotas/edit', mascota.id]"><i class="bi bi-pencil-square"></i>Editar</a>
           <a class="btn btn-danger flex-grow-1 hover-btn" (click)="eliminarMascota(mascota.id)"><i class="bi bi-trash3"></i>Eliminar</a>
         </div>

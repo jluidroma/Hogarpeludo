@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { RouterLink,RouterLinkActive  } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../shared/auth-service.service';
 
 @Component({
   selector: 'app-list-mascotas',
@@ -18,9 +19,9 @@ title = 'Mascotas en adopción'
   //IMPORTAR las mascotas creadas de nuestra base  de datos
   mascotas: Observable<MascotaModel[]> | undefined;
   
-
   constructor(
     private mascotaService: MascotaService,
+    public authService: AuthService
 
   ) {}
 

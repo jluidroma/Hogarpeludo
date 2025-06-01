@@ -8,8 +8,8 @@
       <ul class="nav-links">
         <li><a href="/">Inicio</a></li>
         <li><a href="/mascotas">Adopciones</a></li>
-        <li><a href="/mascotas">solicitudes</a></li>
-        <li><a href="/visitas">visitas</a></li>
+        <li *ngIf="authService.isAdmin()"><a href="/mascotas">solicitudes</a></li>
+        <li *ngIf="authService.isAdmin()"><a href="/visitas">visitas</a></li>
         <li><a href="/voluntarios">voluntarios</a></li>
         <li><a href="/refugios">refugios</a></li>
         <li><a href="/registro" class="btn">Regístrate</a></li>

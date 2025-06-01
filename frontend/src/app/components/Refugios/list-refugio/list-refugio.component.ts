@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { RouterLink,RouterLinkActive  } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../shared/auth-service.service';
 
 @Component({
   selector: 'app-list-refugio',
@@ -20,6 +21,7 @@ export class ListRefugioComponent {
 
   constructor(
     private refugioservice: RefugioService,
+    public authService: AuthService
 
   ) {}
 

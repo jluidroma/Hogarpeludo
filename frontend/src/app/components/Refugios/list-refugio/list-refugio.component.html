@@ -2,8 +2,8 @@
   <!-- Encabezado con botón Agregar -->
   <div class="add-list">
     <h2 class="header-title">Nuestros Refugios</h2>
-    <button class="btn-agregar-refugio" [routerLink]="['/refugios/add']">
-      <i class="bi bi-plus-circle"></i> Agregar Refugio
+    <button class="btn-agregar-refugio" [routerLink]="['/refugios/add']" *ngIf="authService.isAdmin()">
+      <i class="bi bi-plus-circle" ></i> Agregar Refugio
     </button>
   </div>
 <!-- Tabla de Refugios -->
@@ -15,7 +15,7 @@
           <th class="px-6 py-3 border-b">Ubicación</th>
           <th class="px-6 py-3 border-b">Email</th>
           <th class="px-6 py-3 border-b">Teléfono</th>
-          <th class="px-6 py-3 border-b text-center">Opciones</th>
+          <th class="px-6 py-3 border-b text-center" *ngIf="authService.isAdmin()">Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -26,12 +26,14 @@
           <td class="px-6 py-4 border-b">{{ refugio.telefono }}</td>
           <td class="px-6 py-4 border-b text-center space-x-2">
             <button
+              *ngIf="authService.isAdmin()"
               class="btn-opcion btn-editar"
-              [routerLink]="['/refugios/edit', refugio.id]">
+              [routerLink]="['/refugios/edit', refugio.id]" >
               <i class="bi bi-pencil-square"></i> Editar
             </button>
 
             <button
+              *ngIf="authService.isAdmin()"
               class="btn-opcion btn-eliminar"
               (click)="eliminarRefugio(refugio.id)">
               <i class="bi bi-trash"></i> Eliminar

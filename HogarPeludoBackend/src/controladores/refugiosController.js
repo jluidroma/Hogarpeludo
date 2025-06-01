@@ -136,6 +136,12 @@ refugios.destroy({ where: { id: id } })
           });
      })
      .catch((err) => {
+           // Verificar si es una violación de clave foránea
+          if (err.code === 'ER_ROW_IS_REFERENCED_2') {
+               return res.status(400).json({
+               message: 'No se puede eliminar este refugio porque está siendo utilizado en otras tablas.',
+               });
+          }
           res.status(500).json({
                tipo: 'error',
                mensaje: `Error al eliminar el registro: ${err.message}`,

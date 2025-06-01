@@ -6,6 +6,7 @@ import { RouterLinkActive } from '@angular/router';
 import { VoluntarioModel } from '../../../shared/models/voluntario.model';
 import { VoluntarioService } from '../../../shared/services/voluntario.service';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../../shared/auth-service.service';
 @Component({
   selector: 'app-list-voluntario',
   standalone: true,
@@ -18,14 +19,19 @@ title = 'nuestros voluntarios'
   //IMPORTAR las voluntarios creadas de nuestra base  de datos
   voluntarios: Observable<VoluntarioModel[]> | undefined;
   
+  public isAdmin = false;
 
   constructor(
     private voluntarioService: VoluntarioService,
+    public authService: AuthService
 
   ) {}
 
 
   ngOnInit() {
+    this.authService.userRole$.subscribe(role => {
+      this.isAdmin = role === 'admin';
+    });
     //hago uso de los metodos creados en el servicio
     this.voluntarios = this.voluntarioService.obtenerVoluntarios();
 
