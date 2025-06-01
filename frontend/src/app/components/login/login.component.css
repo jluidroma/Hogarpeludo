@@ -1,7 +1,7 @@
 body {
-  background-color: #ffffff;
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #ffffff);
 }
 
 .form-section {
@@ -10,29 +10,33 @@ body {
   justify-content: center;
   align-items: center;
   padding: 40px 15px;
-  background-color: #ffffff;
 }
 
 .form-container {
   width: 100%;
-  max-width: 550px;
+  max-width: 450px;
   background-color: #ffffff;
   padding: 40px;
   border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   animation: fadeInUp 0.6s ease;
 }
 
 .highlight-box {
-  background-color: #e0f0ff;
-  padding: 20px;
-  border-left: 5px solid #5a9bd4;
-  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.highlight-box h3 {
+  color: #333;
+  font-weight: 600;
+  font-size: 1.8rem;
+  margin: 0;
 }
 
 .text-box {
   background-color: #ffffff;
-  padding: 30px;
+  padding: 20px;
   border-radius: 12px;
   border: 1px solid #dceaff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -40,59 +44,39 @@ body {
 
 .form-group {
   margin-bottom: 20px;
+  position: relative;
 }
 
 label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #333;
+  font-weight: 500;
+  color: #444;
+  font-size: 0.95rem;
 }
 
 .input-estilo {
   width: 100%;
-  padding: 15px;
+  padding: 12px 12px 12px 40px;
   border-radius: 12px;
   border: 1px solid #ccc;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
+  font-size: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-estilo:focus {
   outline: none;
   border-color: #5a9bd4;
-  box-shadow: 0 0 5px rgba(90, 155, 212, 0.4);
+  box-shadow: 0 0 8px rgba(90, 155, 212, 0.3);
 }
 
-.btn-registro {
-  background-color: #5a9bd4;
-  color: white;
-  padding: 12px 30px;
-  font-size: 16px;
-  border: none;
-  border-radius: 25px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+.input-estilo.is-invalid {
+  border-color: #dc3545;
 }
 
-.btn-registro:hover {
-  background-color: #4a8ac1;
-  transform: scale(1.02);
-}
-
-body {
-  background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.error-message {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 5px;
 }
 
 .input-icon {
@@ -105,10 +89,22 @@ body {
   left: 15px;
   transform: translateY(-50%);
   color: #999;
+  font-size: 1rem;
 }
 
-.input-icon input {
-  padding-left: 40px;
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.toggle-password i {
+  font-size: 1rem;
 }
 
 .alert {
@@ -129,4 +125,92 @@ body {
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
+}
+
+.btn-registro {
+  background-color: #5a9bd4;
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-registro:hover {
+  background-color: #4a8ac1;
+  transform: translateY(-2px);
+}
+
+.btn-registro:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.register-link a {
+  color: #ee6618;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 30px 20px;
+    margin: 0 15px;
+  }
+
+  .highlight-box h3 {
+    font-size: 1.5rem;
+  }
+
+  .input-estilo {
+    font-size: 14px;
+  }
 }

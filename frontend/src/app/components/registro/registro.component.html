@@ -1,58 +1,69 @@
-<section class="form-section d-flex align-items-center justify-content-center">
+<section class="form-section">
   <div class="form-container">
-    <div class="highlight-box text-center mb-4">
-      <h3>Registro de Usuario</h3>
+    <div class="highlight-box">
+      <h3>Crear Cuenta</h3>
     </div>
-
-    <form class="text-box">
-      <div class="form-group">
-        <label for="id">ID</label>
-        <input type="text" id="id" name="id" class="form-control input-estilo" placeholder="Ej: 001">
-      </div>
-
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" class="form-control input-estilo" placeholder="Ingresa tu nombre">
-      </div>
-
-      <div class="form-group">
-        <label for="apellido">Apellido</label>
-        <input type="text" id="apellido" name="apellido" class="form-control input-estilo" placeholder="Ingresa tu apellido">
-      </div>
-
+    <form (ngSubmit)="registrarUsuario()" #form="ngForm" class="text-box">
       <div class="form-group">
         <label for="email">Correo Electrónico</label>
-        <input type="email" id="email" name="email" class="form-control input-estilo" placeholder="ejemplo@correo.com">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control input-estilo"
+          placeholder="ejemplo@correo.com"
+          [(ngModel)]="email"
+          required
+          email
+          #emailInput="ngModel"
+          [ngClass]="{'is-invalid': emailInput.invalid && emailInput.touched}"
+        />
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+          Por favor, ingresa un correo válido.
+        </div>
       </div>
 
       <div class="form-group">
         <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" class="form-control input-estilo" placeholder="Ingresa una contraseña">
-      </div>
-
-      <div class="form-group">
-        <label for="telefono">Teléfono</label>
-        <input type="tel" id="telefono" name="telefono" class="form-control input-estilo" placeholder="Ej: 3001234567">
-      </div>
-
-      <div class="form-group">
-        <label for="direccion">Dirección</label>
-        <input type="text" id="direccion" name="direccion" class="form-control input-estilo" placeholder="Ej: Calle 123 #45-67">
-      </div>
-
-      <div class="form-group mb-4">
-        <label for="rol">Rol</label>
-        <select id="rol" name="rol" class="form-control input-estilo">
-          <option value="" disabled selected>Selecciona un rol</option>
-          <option value="admin">Administrador</option>
-          <option value="usuario">Usuario</option>
-          <option value="voluntario">Voluntario</option>
-        </select>
+        <div class="password-container">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            class="form-control input-estilo"
+            placeholder="Ingresa una contraseña"
+            [(ngModel)]="password"
+            required
+            minlength="6"
+            #passwordInput="ngModel"
+            [ngClass]="{'is-invalid': passwordInput.invalid && passwordInput.touched}"
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility()"
+            aria-label="Mostrar/Ocultar contraseña"
+          >
+            <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
+          La contraseña debe tener al menos 6 caracteres.
+        </div>
       </div>
 
       <div class="text-center">
-        <button type="submit" class="btn btn-registro">Registrar</button>
+        <button
+          type="submit"
+          class="btn btn-registro"
+          [disabled]="form.invalid"
+        >
+          Registrar
+        </button>
       </div>
+      <p class="login-link">
+        ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>
+      </p>
     </form>
   </div>
 </section>
