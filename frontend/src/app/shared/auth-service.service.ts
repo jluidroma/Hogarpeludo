@@ -54,4 +54,16 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.isLoggedInSubject.value;
   }
+
+  logout(): void {
+  if (this.isBrowser) {
+    localStorage.removeItem('userRole');
+  }
+
+  this.userRoleSubject.next(null);
+  this.isLoggedInSubject.next(false);
 }
+
+}
+
+

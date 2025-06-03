@@ -1,16 +1,137 @@
+/* Header */
 .header-container {
-     background-color: rgb(40, 124, 192);
-     height: 90px;
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
-     padding: 0 10%; /* Espacio a los lados */
+  background: linear-gradient(135deg, #2878c0, #1a5a8c);
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.header-title {
+  color: white;
+  font-weight: 600;
+  font-size: 1.75rem;
+  margin: 0;
+}
+
+/* Button Styles */
 .hover-btn {
-     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 .hover-btn:hover {
-     transform: scale(1.05);
-     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hover-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 124, 192, 0.3);
+}
+
+/* Card Styles */
+.card {
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header.bg-gradient-primary {
+  background: linear-gradient(135deg, #2878c0, #1a5a8c);
+  border-bottom: none;
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-weight: 500;
+}
+
+/* Form Floating Labels */
+.form-floating > .form-control,
+.form-floating > .form-select {
+  height: calc(3.5rem + 2px);
+  border-radius: 0.5rem;
+}
+
+.form-floating > label {
+  color: #6c757d;
+  transition: all 0.2s ease;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select:not(:placeholder-shown) ~ label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  color: #2878c0;
+}
+
+/* Input Validation */
+.form-control:invalid:focus,
+.form-control:invalid:not(:placeholder-shown) {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.form-control:valid:focus,
+.form-control:valid:not(:placeholder-shown) {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Image Preview */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Input Group for Image */
+.input-group .form-control {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.input-group .input-group-text {
+  background-color: #f8f9fa;
+  border-radius: 0;
+}
+
+.input-group .form-control:last-child {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .header-container {
+    padding: 0 3%;
+    height: 70px;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .btn-lg {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group .form-control,
+  .input-group .input-group-text {
+    border-radius: 0.5rem !important;
+    margin-bottom: 0.5rem;
+  }
 }

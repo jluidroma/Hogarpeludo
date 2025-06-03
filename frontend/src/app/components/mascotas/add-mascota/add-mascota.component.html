@@ -1,95 +1,169 @@
-
 <div class="header-container">
-     <h2 class="header-title">Mascotas en adopción</h2>
-     <a class="btn btn-lg hover-btn" [routerLink]="['/mascotas/listarmascotas']">
-          <i class="bi bi-backspace-fill"></i>
-     </a>
+  <h2 class="header-title">Mascotas en Adopción</h2>
+  <a class="btn btn-outline-light hover-btn" [routerLink]="['/mascotas/listarmascotas']" aria-label="Volver a la lista de mascotas">
+    <i class="bi bi-arrow-left"></i> Volver
+  </a>
 </div>
-<div class="container mt-5 mb-5">
-<div class="row justify-content-center ">
-     <div class="col-md-6 ">
-     <div class="card shadow ">
-          <div class="card-header bg-primary text-white">
-          <h4 class="card-title">{{opcion}}</h4>
-          </div>
-          <div class="card-body">
-          <form (ngSubmit)="onSubmit()" #mascotaForm="ngForm">
-          <!-- Nombre de la Mascota -->
-          <div class="form-group mb-3">
-               <label for="nombreMascota">Nombre</label>
-               <input type="text" class="form-control" id="nombreMascota" placeholder="Nombre de la mascota" required [(ngModel)]="mascota.nombre" name="nombre" required>
-          </div>
 
-          
-          <!-- Sexo de la Mascota -->
-          <div class="form-group mb-3">
-               <label for="sexoMascota">Sexo</label>
-               <select class="form-control" id="sexoMascota" required [(ngModel)]="mascota.sexo" name="sexo" required>
-                    <option value="" disabled selected>Selecciona el sexo</option>
-                    <option value="M">Macho</option>
-                    <option value="H">Hembra</option>
-               </select>
-          </div>
-          <!-- Raza de la Mascota -->
-          <div class="form-group mb-3">
-               <label for="razaMascota">Raza</label>
-               <input type="text" class="form-control" id="razaMascota" required [(ngModel)]="mascota.raza" name="raza" placeholder="Raza de la mascota" required>
-          </div>
-          
-          <!-- Edad de la Mascota -->
-          <div class="form-group mb-3">
-               <label for="edadMascota">Edad</label>
-               <input type="number" class="form-control" id="edadMascota" placeholder="Edad en años" required [(ngModel)]="mascota.edad" name="edad" required>
-          </div>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-header bg-gradient-primary text-white rounded-top-4">
+          <h4 class="card-title mb-0">{{opcion}}</h4>
+        </div>
+        <div class="card-body p-4">
+          <form (ngSubmit)="onSubmit()" #mascotaForm="ngForm" novalidate>
+            <!-- Nombre de la Mascota -->
+            <div class="form-floating mb-4">
+              <input
+                type="text"
+                class="form-control"
+                id="nombreMascota"
+                placeholder="Nombre de la mascota"
+                [(ngModel)]="mascota.nombre"
+                name="nombre"
+                required
+                aria-describedby="nombreError"
+              >
+              <label for="nombreMascota">Nombre</label>
+              <div *ngIf="mascotaForm.controls['nombre']?.invalid && mascotaForm.controls['nombre']?.touched" class="text-danger mt-1" id="nombreError">
+                El nombre es obligatorio.
+              </div>
+            </div>
 
-          <!-- Talla de la Mascota -->
-          <div class="form-group mb-3">
-               <label for="tamanoMascota">Talla</label>
-               <select class="form-control" id="tamanoMascota" required [(ngModel)]="mascota.talla" name="talla" required>
-               <option value="" disabled selected>Selecciona la Talla</option>
-               <option value="Pequeño">Pequeño</option>
-               <option value="Mediano">Mediano</option>
-               <option value="Grande">Grande</option>
-               </select>
-          </div>
+            <!-- Sexo de la Mascota -->
+            <div class="form-floating mb-4">
+              <select
+                class="form-control"
+                id="sexoMascota"
+                [(ngModel)]="mascota.sexo"
+                name="sexo"
+                required
+                aria-describedby="sexoError"
+              >
+                <option value="" disabled selected>Selecciona el sexo</option>
+                <option value="M">Macho</option>
+                <option value="H">Hembra</option>
+              </select>
+              <label for="sexoMascota">Sexo</label>
+              <div *ngIf="mascotaForm.controls['sexo']?.invalid && mascotaForm.controls['sexo']?.touched" class="text-danger mt-1" id="sexoError">
+                El sexo es obligatorio.
+              </div>
+            </div>
 
-          <!--refugio-->
-          <div class="form-group mb-3">
-               <label for="refugio">Refugio</label>
-               <select 
-  class="form-control" 
-  id="refugio" 
-  required 
-  [(ngModel)]="refugioSeleccionado" 
-  name="refugio"
->
-  <option value="" disabled selected>Seleccione el refugio</option>
-  <option 
-    *ngFor="let refugio of refugios | async" 
-    [value]="refugio.id"
-  >
-    {{refugio.nombre}}
-  </option>
-</select>
-        
-          </div>
-          <!-- URL de la Imagen de la Mascota -->
-          <div class="form-group mb-3">
-               <label for="imagenMascota">URL de Imagen</label>
-               <input type="url" class="form-control" id="imagenMascota" placeholder="URL de la imagen de la mascota" required [(ngModel)]="mascota.imagen" name="imagen" required>
-          </div>
+            <!-- Raza de la Mascota -->
+            <div class="form-floating mb-4">
+              <input
+                type="text"
+                class="form-control"
+                id="razaMascota"
+                placeholder="Raza de la mascota"
+                [(ngModel)]="mascota.raza"
+                name="raza"
+                required
+                aria-describedby="razaError"
+              >
+              <label for="razaMascota">Raza</label>
+              <div *ngIf="mascotaForm.controls['raza']?.invalid && mascotaForm.controls['raza']?.touched" class="text-danger mt-1" id="razaError">
+                La raza es obligatoria.
+              </div>
+            </div>
 
-          
+            <!-- Edad de la Mascota -->
+            <div class="form-floating mb-4">
+              <input
+                type="number"
+                class="form-control"
+                id="edadMascota"
+                placeholder="Edad en años"
+                [(ngModel)]="mascota.edad"
+                name="edad"
+                required
+                min="0"
+                aria-describedby="edadError"
+              >
+              <label for="edadMascota">Edad (en años)</label>
+              <div *ngIf="mascotaForm.controls['edad']?.invalid && mascotaForm.controls['edad']?.touched" class="text-danger mt-1" id="edadError">
+                La edad es obligatoria y debe ser un número válido.
+              </div>
+            </div>
 
-          <!-- Botones -->
-          <div class="d-flex justify-content-between mt-5 mb-4">
-               <button type="submit" [class]="btnEnvEdit.class" [disabled]="!mascotaForm.form.valid"><i [class]="btnEnvEdit.icon"></i>{{btnEnvEdit.mensaje}}</button>
-          </div>
+            <!-- Talla de la Mascota -->
+            <div class="form-floating mb-4">
+              <select
+                class="form-control"
+                id="tamanoMascota"
+                [(ngModel)]="mascota.talla"
+                name="talla"
+                required
+                aria-describedby="tallaError"
+              >
+                <option value="" disabled selected>Selecciona la talla</option>
+                <option value="Pequeño">Pequeño</option>
+                <option value="Mediano">Mediano</option>
+                <option value="Grande">Grande</option>
+              </select>
+              <label for="tamanoMascota">Talla</label>
+              <div *ngIf="mascotaForm.controls['talla']?.invalid && mascotaForm.controls['talla']?.touched" class="text-danger mt-1" id="tallaError">
+                La talla es obligatoria.
+              </div>
+            </div>
+
+            <!-- Refugio -->
+            <div class="form-floating mb-4">
+              <select
+                class="form-control"
+                id="refugio"
+                [(ngModel)]="refugioSeleccionado"
+                name="refugio"
+                required
+                aria-describedby="refugioError"
+              >
+                <option value="" disabled selected>Selecciona el refugio</option>
+                <option *ngFor="let refugio of refugios | async" [value]="refugio.id">
+                  {{refugio.nombre}}
+                </option>
+              </select>
+              <label for="refugio">Refugio</label>
+              <div *ngIf="mascotaForm.controls['refugio']?.invalid && mascotaForm.controls['refugio']?.touched" class="text-danger mt-1" id="refugioError">
+                El refugio es obligatorio.
+              </div>
+            </div>
+
+            <!-- URL de la Imagen de la Mascota -->
+            <div class="form-floating mb-4">
+              <input
+                type="url"
+                class="form-control"
+                id="imagenMascota"
+                placeholder="URL de la imagen de la mascota"
+                [(ngModel)]="mascota.imagen"
+                name="imagen"
+                required
+                aria-describedby="imagenError"
+              >
+              <label for="imagenMascota">URL de Imagen</label>
+              <div *ngIf="mascotaForm.controls['imagen']?.invalid && mascotaForm.controls['imagen']?.touched" class="text-danger mt-1" id="imagenError">
+                La URL de la imagen es obligatoria.
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="d-flex justify-content-end mt-4">
+              <button
+                type="submit"
+                [class]="btnEnvEdit.class"
+                [disabled]="!mascotaForm.form.valid"
+                class="btn btn-primary btn-lg hover-btn"
+                aria-label="Enviar formulario"
+              >
+                <i [class]="btnEnvEdit.icon"></i> {{btnEnvEdit.mensaje}}
+              </button>
+            </div>
           </form>
-          </div>
-     </div>
-     </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-
-

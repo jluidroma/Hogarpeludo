@@ -1,65 +1,81 @@
-<div class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl">
-  <h2 class="text-3xl font-bold text-center text-indigo-600 mb-6">{{opcion}}</h2>
+<div class="form-container">
+  <h2 class="form-title">{{opcion}}</h2>
 
-  <form (ngSubmit)="onSubmit()" #formVoluntario="ngForm" class="space-y-5">
+  <form (ngSubmit)="onSubmit()" #formVoluntario="ngForm" class="volunteer-form">
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label class="block font-semibold mb-1">Nombre</label>
-        <input type="text" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.nombre" name="nombre" />
+    <div class="form-grid">
+      <!-- Grupo Nombre -->
+      <div class="form-group">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-input" required [(ngModel)]="voluntario.nombre" name="nombre" 
+               placeholder="Ingrese su nombre" />
+        <span class="input-icon"><i class="fas fa-user"></i></span>
       </div>
-      <div>
-        <label class="block font-semibold mb-1">Apellido</label>
-        <input type="text" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.apellido" name="apellido" />
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label class="block font-semibold mb-1">Correo Electrónico</label>
-        <input type="email" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.email" name="email" />
-      </div>
-      <div>
-        <label class="block font-semibold mb-1">Teléfono</label>
-        <input type="tel" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.telefono" name="telefono" />
+      
+      <!-- Grupo Apellido -->
+      <div class="form-group">
+        <label class="form-label">Apellido</label>
+        <input type="text" class="form-input" required [(ngModel)]="voluntario.apellido" name="apellido" 
+               placeholder="Ingrese su apellido" />
+        <span class="input-icon"><i class="fas fa-user"></i></span>
       </div>
     </div>
 
-    <div>
-      <label class="block font-semibold mb-1">Disponibilidad</label>
-      <select class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="voluntario.disponibilidad" name="disponibilidad">
-        <option value="">Seleccione disponibilidad</option>
-        <option value="Mañana">Mañana</option>
-        <option value="Tarde">Tarde</option>
-        <option value="Completa">Completa</option>
-      </select>
+    <div class="form-grid">
+      <!-- Grupo Email -->
+      <div class="form-group">
+        <label class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-input" required [(ngModel)]="voluntario.email" name="email" 
+               placeholder="ejemplo@correo.com" />
+        <span class="input-icon"><i class="fas fa-envelope"></i></span>
+      </div>
+      
+      <!-- Grupo Teléfono -->
+      <div class="form-group">
+        <label class="form-label">Teléfono</label>
+        <input type="tel" class="form-input" required [(ngModel)]="voluntario.telefono" name="telefono" 
+               placeholder="Ingrese su teléfono" />
+        <span class="input-icon"><i class="fas fa-phone"></i></span>
+      </div>
     </div>
 
-    <!-- Campo nuevo: URL de imagen -->
-    <div>
-      <label class="block font-semibold mb-1">URL de Imagen</label>
-      <input 
-        type="text" 
-        class="w-full border rounded-xl px-4 py-2" 
-        [(ngModel)]="voluntario.imagenUrl" 
-        name="imagenUrl" 
-        placeholder="https://ejemplo.com/imagen.jpg" />
+    <!-- Grupo Disponibilidad -->
+    <div class="form-group">
+      <label class="form-label">Disponibilidad</label>
+      <div class="select-wrapper">
+        <select class="form-input" required [(ngModel)]="voluntario.disponibilidad" name="disponibilidad">
+          <option value="" disabled selected>Seleccione disponibilidad</option>
+          <option value="Mañana">Mañana</option>
+          <option value="Tarde">Tarde</option>
+          <option value="Completa">Completa</option>
+        </select>
+        <span class="select-arrow"><i class="fas fa-chevron-down"></i></span>
+      </div>
     </div>
 
-    <div class="espacio-final">
-      <label class="block font-semibold mb-1">Refugio Asociado</label>
-      <select 
-        class="w-full border rounded-xl px-4 py-2" 
-        required 
-        [(ngModel)]="voluntario.id_refugio" 
-        name="id_refugio">
-        <option value="" disabled selected>Seleccione el refugio</option>
-        <option *ngFor="let refugio of refugios | async" [value]="refugio.id">{{refugio.nombre}}</option>
-      </select>
+    <!-- Grupo URL de Imagen -->
+    <div class="form-group">
+      <label class="form-label">URL de Imagen</label>
+      <input type="text" class="form-input" [(ngModel)]="voluntario.imagenUrl" name="imagenUrl" 
+             placeholder="https://ejemplo.com/imagen.jpg" />
+      <span class="input-icon"><i class="fas fa-image"></i></span>
     </div>
 
-    <button type="submit" [class]="btnEnvEdit.class" [disabled]="!formVoluntario.form.valid">
+    <!-- Grupo Refugio -->
+    <div class="form-group">
+      <label class="form-label">Refugio Asociado</label>
+      <div class="select-wrapper">
+        <select class="form-input" required [(ngModel)]="voluntario.id_refugio" name="id_refugio">
+          <option value="" disabled selected>Seleccione el refugio</option>
+          <option *ngFor="let refugio of refugios | async" [value]="refugio.id">{{refugio.nombre}}</option>
+        </select>
+        <span class="select-arrow"><i class="fas fa-chevron-down"></i></span>
+      </div>
+    </div>
+
+    <!-- Botón de Envío -->
+    <button type="submit" class="submit-btn" [disabled]="!formVoluntario.form.valid">
       <i [class]="btnEnvEdit.icon"></i> {{btnEnvEdit.mensaje}}
     </button>
-  </form>
+  </form>
 </div>

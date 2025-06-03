@@ -1,34 +1,58 @@
-<!-- refugio-registro.component.html -->
-<div class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl">
-     <h2 class="text-3xl font-bold text-center text-indigo-600 mb-6">{{opcion}}</h2>
+<div class="form-container">
+  <div class="form-card">
+    <div class="form-header">
+      <h2 class="form-title">{{opcion}}</h2>
+      <div class="form-icon">
+        <i class="fas fa-paw"></i>
+      </div>
+    </div>
   
-     <form (ngSubmit)="onSubmit()" #formRef="ngForm" class="space-y-5">
-     <div>
-          <label class="block font-semibold mb-1">Nombre del refugio</label>
-          <input type="text" class="w-full border rounded-xl px-4 py-2" required [(ngModel)]="refugio.nombre" name="nombre" />
-     </div>
+    <form (ngSubmit)="onSubmit()" #formRef="ngForm" class="refugio-form">
+      <!-- Grupo Nombre -->
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-home label-icon"></i>
+          Nombre del refugio
+        </label>
+        <input type="text" class="form-input" required [(ngModel)]="refugio.nombre" name="nombre" placeholder="Ej: Refugio Patitas Felices" />
+      </div>
 
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-          <label class="block font-semibold mb-1">Dirección</label>
-          <input type="text" class="w-full border rounded-xl px-4 py-2" [(ngModel)]="refugio.ubicacion" name="ubicacion" />
-          </div>
-     </div>
-     <div>
-          <label class="block font-semibold mb-1">Correo electrónico</label>
-          <input type="email" class="w-full border rounded-xl px-4 py-2" [(ngModel)]="refugio.email" name="email" />
-     </div>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-          <label class="block font-semibold mb-1">Teléfono</label>
-          <input type="tel" class="w-full border rounded-xl px-4 py-2" [(ngModel)]="refugio.telefono" name="telefono" />
-     </div>
-    
-     </div>
+      <!-- Grupo Dirección -->
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-map-marker-alt label-icon"></i>
+            Dirección
+          </label>
+          <input type="text" class="form-input" [(ngModel)]="refugio.ubicacion" name="ubicacion" placeholder="Ej: Calle Principal #123" />
+        </div>
+      </div>
 
-     <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-xl w-full mt-4">
-          {{btnEnvEdit.mensaje}}
-     </button>
-  </form>
+      <!-- Grupo Email -->
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-envelope label-icon"></i>
+          Correo electrónico
+        </label>
+        <input type="email" class="form-input" [(ngModel)]="refugio.email" name="email" placeholder="Ej: contacto@refugio.com" />
+      </div>
+
+      <!-- Grupo Teléfono -->
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-phone label-icon"></i>
+            Teléfono
+          </label>
+          <input type="tel" class="form-input" [(ngModel)]="refugio.telefono" name="telefono" placeholder="Ej: ‪+51 987654321‬" />
+        </div>
+      </div>
+
+      <!-- Botón de Submit -->
+      <button type="submit" class="submit-btn">
+        <i class="fas fa-paper-plane btn-icon"></i>
+        {{btnEnvEdit.mensaje}}
+      </button>
+    </form>
+  </div>
 </div>
-

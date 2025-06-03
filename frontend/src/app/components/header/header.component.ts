@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../shared/auth-service.service';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   public isAdmin = false;
+  dropdownVisible = false;
   constructor(public authService: AuthService) {}
   
   ngOnInit(): void {
@@ -19,4 +21,12 @@ export class HeaderComponent {
       this.isAdmin = role === 'admin';
     });
   }
+  toggleDropdown() {
+  this.dropdownVisible = !this.dropdownVisible;
+  }
+  cerrarsesion() {
+
+  this.authService.logout();
+  }
+ 
 }

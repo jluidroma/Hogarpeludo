@@ -40,7 +40,7 @@
 }
 
 .carousel-button {
-  background-color: #facc15;
+  background-color: #f57c00;;
   color: #1f2937;
   border: none;
   padding: 12px 24px;
@@ -52,7 +52,7 @@
 }
 
 .carousel-button:hover {
-  background-color: #fbbf24;
+  background-color: white;
   transform: scale(1.05);
   box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
