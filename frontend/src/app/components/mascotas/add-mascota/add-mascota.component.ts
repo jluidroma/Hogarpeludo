@@ -33,7 +33,7 @@ refugios: Observable<RefugioModel[]> | undefined;
   public isAdmin = false;
   mascota=new MascotaModel('','','','','','','','','');
   refugio=new RefugioModel('','','','','');
-
+  
 
   //pasa dos parametros al constructor  el parametro ruta me permite capturar la ruta activa en el momento
   constructor(
@@ -42,7 +42,7 @@ refugios: Observable<RefugioModel[]> | undefined;
     private notiService:NotificacionService,
     public authService: AuthService
   ){
-      
+
   }
   ngOnInit(){
     this.authService.userRole$.subscribe(role => {
@@ -54,6 +54,7 @@ refugios: Observable<RefugioModel[]> | undefined;
     this.refugios = this.refugioSerice.obtenerRefugios();
     if(this.id){
       //Viene de Editar
+      console.log("editasr")
       this.opcion='Editar Mascota';
       this.btnEnvEdit.mensaje='Actualizar datos';
       this.btnEnvEdit.class="btn btn-primary flex-grow-1 me-2 hover-btn";
@@ -80,12 +81,8 @@ refugios: Observable<RefugioModel[]> | undefined;
     if(this.mascota.id){
       this.mascotaService.actualizarMascota(this.mascota).subscribe({
         next: data=>{
-          console.log(data);
           this.router.navigate(['/mascotas/']);
-          this.notiService.mostrar('success',data.mensaje)
-          
-          
-
+          this.notiService.mostrar(data.type,data.mensaje)
         },
         error: err=>{
           console.log(`Error al actualizar ${err}`);
@@ -97,9 +94,8 @@ refugios: Observable<RefugioModel[]> | undefined;
       this.mascota.id_refugio=this.refugioSeleccionado;
       this.mascotaService.agregarMascotas(this.mascota).subscribe({
         next: data=>{
-          console.log(data);
           this.router.navigate(['/mascotas']);
-          this.notiService.mostrar('success',data.mensaje)
+          this.notiService.mostrar(data.type,data.mensaje)
 
         },
         error: err=>{

@@ -1,0 +1,43 @@
+<div class="max-w-6xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl">
+  <!-- Encabezado con botón Agregar -->
+     <div class="add-list">
+     <h2 class="header-title">Usuarios</h2>
+     </div>
+<!-- Tabla de Refugios -->
+     <div class="overflow-x-auto">
+     <table class="min-w-full bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+          <thead class="bg-indigo-100 text-indigo-800 font-semibold text-left">
+               <tr>
+                    <th class="px-6 py-3 border-b">uid</th>
+                    <th class="px-6 py-3 border-b">Email</th>
+                     <th class="px-6 py-3 border-b">nombre</th>
+                    <th class="px-6 py-3 border-b text-center" *ngIf="authService.isAdmin()">Opciones</th>
+               </tr>
+          </thead>
+     <tbody>
+        <tr *ngFor="let usuario of usuarios | async" class="hover:bg-gray-50 transition">
+          <td class="px-6 py-4 border-b">{{ usuario.uid }}</td>
+          <td class="px-6 py-4 border-b">{{ usuario.email }}</td>
+          <td class="px-6 py-4 border-b">{{ usuario.nombreCompleto }}</td>
+          <td class="px-6 py-4 border-b text-center space-x-2">
+            <button
+              *ngIf="authService.isAdmin()"
+              class="btn-opcion btn-editar"
+              [routerLink]="['/usuarios/edit', usuario.uid]" >
+              <i class="bi bi-pencil-square"></i> Editar
+            </button>
+
+            <button
+              *ngIf="authService.isAdmin()"
+              class="btn-opcion btn-eliminar"
+              (click)="eliminarUsuario(usuario.uid)">
+              <i class="bi bi-trash"></i> Eliminar
+            </button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

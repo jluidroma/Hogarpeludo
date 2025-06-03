@@ -1,6 +1,6 @@
 import  Sequelize  from "sequelize"
 import {mascotas} from "./mascotaModelo.js"
-import { usuarios } from "./usuarioModelo.js"
+import { usuario } from "./usuarioModelo.js"
 import {db} from "../database/conexion.js"
 
 const solicitud = db.define("solicitud",{
@@ -20,11 +20,11 @@ const solicitud = db.define("solicitud",{
 
      },
      id_solicitante:{
-          type:Sequelize.INTEGER,
+          type:Sequelize.STRING,
           allowNul: false,
           references: {
-               model: usuarios, // Nombre del modelo que referencia
-               key: 'id'       // Clave primaria en el modelo "usuario"
+               model: usuario, // Nombre del modelo que referencia
+               key: 'uid'       // Clave primaria en el modelo "usuario"
           }
 
      },

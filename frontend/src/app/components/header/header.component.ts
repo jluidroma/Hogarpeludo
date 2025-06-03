@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   public isAdmin = false;
   constructor(public authService: AuthService) {}
+  
   ngOnInit(): void {
     this.authService.userRole$.subscribe(role => {
       this.isAdmin = role === 'admin';

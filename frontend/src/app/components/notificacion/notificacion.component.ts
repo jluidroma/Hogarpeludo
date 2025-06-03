@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NotificacionService } from '../../shared/notificacion.service';
 @Component({
   selector: 'app-notificacion',
   standalone: true,
@@ -12,7 +13,19 @@ export class NotificacionComponent {
   @Input() mensaje: string = '';
   @Output() cerrarNotificacion = new EventEmitter<void>();
 
+  constructor(
+    public notiService:NotificacionService,
+  ){}
+
   cerrar() {
+    this.notiService.aceptDelet = true;
+    this.notiService.confirmarEliminacion();  
     this.cerrarNotificacion.emit();
   }
+  cancelar() {
+    this.notiService.aceptDelet = false; 
+    this.cerrarNotificacion.emit();
+  }
+
+
 }

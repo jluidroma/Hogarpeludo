@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VoluntarioModel } from '../models/voluntario.model';
 import { HttpHeaders } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,24 +23,25 @@ export class VoluntarioService {
     }
     //buscar una voluntario por id
     obtenerVoluntario(idvoluntario:string){
-      return this.http.get<VoluntarioModel>(`${this.BASE_URL}/voluntarios/${idvoluntario}`);
+      const headers = this.getAuthHeaders();
+      return this.http.get<VoluntarioModel>(`${this.BASE_URL}/voluntarios/${idvoluntario}`,{ headers });
     }
   
     //agregar una voluntario
     //le pasamos como parametro un objeto voluntario de tipo VoluntarioModel
-    agregarVoluntario(voluntario:VoluntarioModel){
+    agregarVoluntario(voluntario:VoluntarioModel):Observable<{ mensaje: string, type: string }>{
       const headers = this.getAuthHeaders();
-      return this.http.post<string>(`${this.BASE_URL}/voluntarios/`,voluntario, { headers })
+      return this.http.post<{ mensaje: string, type: string }>(`${this.BASE_URL}/voluntarios/`,voluntario, { headers })
     }
     //actualizar voluntario
-    actualizarVoluntario(voluntario:VoluntarioModel){
+    actualizarVoluntario(voluntario:VoluntarioModel):Observable<{ mensaje: string, type: string }>{
       const headers = this.getAuthHeaders();
-      return this.http.put<string>(`${this.BASE_URL}/voluntarios/${voluntario.id}`,voluntario, { headers })
+      return this.http.put<{ mensaje: string, type: string }>(`${this.BASE_URL}/voluntarios/${voluntario.id}`,voluntario, { headers })
     }
     //eliminar voluntario
-    eliminarVoluntario(idvoluntario:string){
+    eliminarVoluntario(idvoluntario:string):Observable<{ mensaje: string, type: string }>{
       const headers = this.getAuthHeaders();
-      return this.http.delete<string>(`${this.BASE_URL}/voluntarios/${idvoluntario}`, { headers })
+      return this.http.delete<{ mensaje: string, type: string }>(`${this.BASE_URL}/voluntarios/${idvoluntario}`, { headers })
     }
 
 }

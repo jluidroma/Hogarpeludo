@@ -1,116 +1,30 @@
-import express from "express";
+import express from 'express';
 import {
-    actualizar,buscar,buscarId,crear,eliminar} from "../controladores/usuariosController.js";
-import { verificarAdmin,verificarToken } from "../middlewares/auth.js";
+  crearUsuario,
+  listarUsuarios,
+  actualizarUsuario,
+  eliminarUsuario,
+  buscarUsuarioPorId
+} from '../controladores/usuariosController.js'
+
+
+import { verificarToken, verificarAdmin } from '../middlewares/auth.js';
 
 const routerUsuarios = express.Router();
 
-/**
- * @swagger
- * /usuarios:
- *   get:
- *     summary: Obtener todos los usuarios
- *     tags: [Usuarios]
- *     responses:
- *       200:
- *         description: Lista de usuarios
- */
-routerUsuarios.get("/", buscar);
+// Crear usuario (solo admins)
+routerUsuarios.post('/',crearUsuario);
 
-/**
- * @swagger
- * /usuarios/{id}:
- *   get:
- *     summary: Obtener un usuario por ID
- *     tags: [Usuarios]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Usuario encontrado
- *       404:
- *         description: Usuario no encontrado
- */
-routerUsuarios.get("/:id",verificarToken,verificarAdmin,buscarId);
+// Listar todos los usuarios (solo admins)
+routerUsuarios.get('/', verificarToken, verificarAdmin, listarUsuarios);
 
-/**
- * @swagger
- * /usuarios:
- *   post:
- *     summary: Crear un nuevo usuario
- *     tags: [Usuarios]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               nombre:
- *                 type: string
- *               correo:
- *                 type: string
- *     responses:
- *       201:
- *         description: Usuario creado
- *       400:
- *         description: Error en los datos
- */
-routerUsuarios.post("/",verificarToken,verificarAdmin,crear)
+// Obtener un usuario por UID (solo admins)
+routerUsuarios.get('/:id', verificarToken, verificarAdmin, buscarUsuarioPorId);
 
-/**
- * @swagger
- * /usuarios/{id}:
- *   put:
- *     summary: Actualizar un usuario existente
- *     tags: [Usuarios]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               nombre:
- *                 type: string
- *               correo:
- *                 type: string
- *     responses:
- *       200:
- *         description: Usuario actualizado
- *       400:
- *         description: Error de validación
- */
-routerUsuarios.put("/:id",verificarToken,verificarAdmin, actualizar);
+// Actualizar usuario (solo admins)
+routerUsuarios.put('/:id', verificarToken, verificarAdmin, actualizarUsuario);
 
-/**
- * @swagger
- * /usuarios/{id}:
- *   delete:
- *     summary: Eliminar un usuario
- *     tags: [Usuarios]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Usuario eliminado
- *       404:
- *         description: Usuario no encontrado
- */
-routerUsuarios.delete("/:id",verificarToken,verificarAdmin, eliminar);
+// Eliminar usuario (solo admins)
+routerUsuarios.delete('/:id', verificarToken, verificarAdmin, eliminarUsuario);
 
 export { routerUsuarios };

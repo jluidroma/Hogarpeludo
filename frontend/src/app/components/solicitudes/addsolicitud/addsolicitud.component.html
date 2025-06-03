@@ -1,0 +1,91 @@
+<div class="header-container mb-4">
+  <h2 class="header-title">Gestión de Solicitudes</h2>
+  <a class="btn btn-lg hover-btn" [routerLink]="['/mascotas']">
+    <i class="bi bi-arrow-left"></i> Volver
+  </a>
+</div>
+
+<div class="container mt-4">
+  <div class="row g-4">
+    <!-- Columna de datos de mascota -->
+    <div class="col-lg-5">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-primary text-white">
+          <h4 class="card-title mb-0">
+            <i class="bi bi-paw me-2"></i>Datos de la Mascota
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <img [src]="mascota?.imagen || 'assets/default-pet.jpg'" 
+                 alt="Imagen de mascota"
+                 class="img-fluid rounded-circle pet-image shadow">
+          </div>
+          
+          <div class="pet-details">
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-card-text me-2"></i>Nombre:</span>
+              <span class="detail-value">{{ mascota?.nombre || 'No especificado' }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-bounding-box me-2"></i>Raza:</span>
+              <span class="detail-value">{{ mascota?.raza || 'No especificado' }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-calendar3 me-2"></i>Edad:</span>
+              <span class="detail-value">{{ mascota?.edad || '0' }} años</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-rulers me-2"></i>Tamaño:</span>
+              <span class="detail-value">{{ mascota?.talla || 'No especificado' }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="detail-label"><i class="bi bi-gender-ambiguous me-2"></i>Sexo:</span>
+              <span class="detail-value">{{ mascota?.sexo || 'No especificado' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna de formulario de solicitud -->
+    <div class="col-lg-7">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-primary text-white">
+          <h4 class="card-title mb-0">
+            <i class="bi bi-file-earmark-text me-2"></i>{{ opcion }}
+          </h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()" #solicitudForm="ngForm">
+            <!-- Datos del solicitante (solo visualización) -->
+            <div class="mb-3">
+              <label class="form-label">
+                <i class="bi bi-person-badge me-2"></i>Solicitante
+              </label>
+              <p class="form-control-plaintext">
+                {{ usuario?.nombreCompleto }}<br>
+                <i class="bi bi-envelope me-1"></i> {{ usuario?.email }}<br>
+                <i class="bi bi-telephone me-1"></i> {{ usuario?.telefono }}
+              </p>
+            </div>
+
+            <!-- Botones -->
+            <div class="d-grid gap-2 mt-4">
+              <button type="submit" 
+                      class="btn btn-success btn-lg"
+                      [disabled]="!solicitudForm.form.valid">
+                <i class="bi bi-send-check me-2"></i>
+                {{ solicitud.id ? 'Actualizar' : 'Enviar' }} Solicitud
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

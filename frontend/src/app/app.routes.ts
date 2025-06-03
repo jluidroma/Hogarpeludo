@@ -8,6 +8,9 @@ import { ListRefugioComponent } from './components/Refugios/list-refugio/list-re
 import { AddRefugioComponent } from './components/Refugios/add-refugio/add-refugio.component';
 import { AddVoluntarioComponent } from './components/Voluntarios/add-voluntario/add-voluntario.component';
 import { ListVoluntarioComponent } from './components/Voluntarios/list-voluntario/list-voluntario.component';
+import { ListusuariosComponent } from './components/usuarios/listusuarios/listusuarios.component';
+import { AddusuarioComponent } from './components/usuarios/addusuario/addusuario.component';
+import { AddsolicitudComponent } from './components/solicitudes/addsolicitud/addsolicitud.component';
 
 export const routes: Routes = [
      {
@@ -49,6 +52,18 @@ export const routes: Routes = [
      {
           path: "voluntarios/edit/:id",
           component: AddVoluntarioComponent
+     },
+     {
+          path:"usuarios",
+          component: ListusuariosComponent
+     },
+     {
+          path:"usuarios/edit/:id",
+          component: AddusuarioComponent
+     },
+     {
+          path: "solicitud/add/:id",
+          component: AddsolicitudComponent
      },
      {
           path:"registro",

@@ -1,165 +1,152 @@
-import { usuarios } from "../modelos/usuarioModelo.js";
+import admin from 'firebase-admin';
+import { usuario } from '../modelos/usuarioModelo.js';
 
-//Crear un recurso usuario
-const crear = (req,res)=>{
+// Crear usuario en Firebase + DB local
+export const crearUsuario = async (req, res) => {
+  const { uid, email, nombreCompleto, telefono, direccion, rol } = req.body;
 
-    //Validar 
-     if(!req.body.nombre){
-          res.status(400).send({ mensaje: "El nombre no puede estar vacío."});
-          return;
-     }
-     if (!req.body.apellido) {
-          return res.status(400).send({ mensaje: "El campo apellido no puede estar vacío." });
-     }    
-     if (!req.body.email) {
-          return res.status(400).send({ mensaje: "El campo email no puede estar vacío." });
-     }
-     if(!req.body.contrasena){
-          res.status(400).send({ mensaje: "El  campo contraseña no puede estar vacío."});
-          return;
-     }
-     if (!req.body.direccion) {
-          return res.status(400).send({ mensaje: "El campo dirección no puede estar vacío." });
-     }    
-     if (!req.body.rol) {
-          return res.status(400).send({ mensaje: "El campo rol no puede estar vacío." });
-     }
-     const dataset={
-          nombre: req.body.nombre,
-          apellido: req.body.apellido,
-          email: req.body.email,
-          contrasena: req.body.contrasena,
-          telefono: req.body.direccion,
-          direccion: req.body.direccion,
-          rol: req.body.rol
-     }
+  if (!uid || !email || !nombreCompleto || !rol) {
+    return res.status(400).json({
+      type: 'error',
+      mensaje: 'Faltan campos obligatorios: uid, email, nombreCompleto, rol'
+    });
+  }
 
-//Usuar Sequelize para crear el recurso en la base de datos
-     usuarios.create(dataset).then((resultado)=>{
-          res.status(200).json({
-               mensaje: "Registro de usuario Creado con Exito"
-          });
-     }).catch((err)=>{
-          res.status(500).json({
-               mensaje: `Registro de usuario No creado ::: ${err}`
-          });
-     });
-}
+  try {
+    // 1. Verificar si el UID ya existe en tu DB local
+    const usuarioExistente = await usuario.findOne({ where: { uid } });
+    if (usuarioExistente) {
+      return res.status(400).json({
+        type: 'error',
+        mensaje: 'El usuario ya está registrado'
+      });
+    }
+    await admin.auth().setCustomUserClaims(uid, { 
+      role: rol 
+    });
+    // 2. Solo guardar en DB local (Firebase Auth ya hizo su parte)
+    await usuario.create({
+      uid,
+      email,
+      nombreCompleto,
+      telefono: telefono || null,
+      direccion: direccion || null,
+      rol
+    });
 
-//Buscar Usuarios 
-const buscar= (req,res)=>{
-usuarios.findAll().then((resultado)=>{
-     res.status(200).json(resultado);
-}).catch((err)=>{
-     res.status(500).json({
-          mensaje:`No se encontraron registros ::: ${err}`
-     });
-});
-}
+    res.status(201).json({
+      type: 'success',
+      mensaje: 'Usuario registrado exitosamente'
+    });
 
-
-//buscar por ID
-const buscarId= (req,res)=>{
-
-const id=req.params.id;
-if(id==null){
-     res.status(400).json({
-          mensaje: "El id no puede estar vacio"
-     });
-     return;
-}
-else{
-     usuarios.findByPk(id).then((resultado)=>{
-          res.status(200).json(resultado);
-     }).catch((err)=>{
-          res.status(500).json({
-               mensaje:`No se encontraron registros ::: ${err}`
-          });
-     });
-
-}
-
-}
-
-
-
-//Actualizar usuario
-const actualizar=(req,res)=>{
-const id=req.params.id;
-if(!req.body.nombre){
-     res.status(400).json({
-          mensaje: "No se encontraron Datos para Actualizar"
-     });
-     return;
-
-}
-else{
-     const nombre= req.body.nombre
-     const apellido= req.body.apellido;
-     const email= req.body.email;
-     const contrasena= req.body.contrasena;
-     const telefono= req.body.telefono;
-     const direccion= req.body.direccion;
-     const rol= req.body.rol
-     usuarios.update({nombre,apellido,email,contrasena,telefono,direccion,rol},{where:{id}}).then((resultado)=>{
-          res.status(200).json({
-               tipo: 'success',
-               mensaje: "Registro Actualizado"
-          });
-
-     }).catch((err)=>{
-          res.status(500).json({
-               tipo: 'error',
-               mensaje: `Error al actualizar Registro ::: ${err}`
-          });
-
-     });
-}
-
-
-}
-
-//Eliminar usuario
-const eliminar = (req, res) => {
-     const id = req.params.id;
-
-// Verificar si se proporcionó un ID
-if (!id) {
-     return res.status(400).json({
-          tipo: "error",
-          mensaje: "Debe ingresar un ID válido",
-     });
-}
-
-// Lógica para eliminar el registro de la base de datos
-usuarios.destroy({ where: { id: id } })
-     .then((result) => {
-          if (result === 0) {
-               return res.status(404).json({
-                    tipo: 'error',
-                    mensaje: `No se encontró un registro con id ${id}`
-               });
-          }
-
-          res.status(200).json({
-               tipo: 'success',
-               mensaje: `Registro con id ${id} eliminado correctamente`,
-          });
-     })
-     .catch((err) => {
-           // Verificar si es una violación de clave foránea
-          if (err.code === 'ER_ROW_IS_REFERENCED_2') {
-               return res.status(400).json({
-               message: 'No se puede eliminar este usuario porque está siendo utilizado en otras tablas.',
-               });
-          }
-          res.status(500).json({
-               tipo: 'error',
-               mensaje: `Error al eliminar el registro: ${err.message}`,
-          });
-     });
+  } catch (error) {
+    console.error('Error en DB local:', error);
+    res.status(500).json({
+      type: 'error',
+      mensaje: 'Error al guardar en DB local'
+    });
+  }
 };
 
+// Obtener todos los usuarios desde Firebase + local
+export const listarUsuarios = async (req, res) => {
+  try {
+    const listUsersResult = await admin.auth().listUsers(1000);
+    const usuarios = await usuario.findAll();
 
+    const resultado = listUsersResult.users.map(user => {
+      const localData = usuarios.find(u => u.uid === user.uid) || {};
+      return {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        phoneNumber: user.phoneNumber,
+        customClaims: user.customClaims,
+        disabled: user.disabled,
+        ...localData?.dataValues,
+      };
+    });
 
-export {crear,buscar,buscarId,actualizar,eliminar}
+    res.json(resultado);
+
+  } catch (error) {
+    console.error('Error listando usuarios:', error);
+    res.status(500).json({ error: 'Error listando usuarios' });
+  }
+};
+
+// Buscar usuario por UID
+export const buscarUsuarioPorId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userRecord = await admin.auth().getUser(id);
+    const usuarioLocal = await usuario.findByPk(id);
+
+    res.json({
+      uid: userRecord.uid,
+      email: userRecord.email,
+      displayName: userRecord.displayName,
+      phoneNumber: userRecord.phoneNumber,
+      customClaims: userRecord.customClaims,
+      disabled: userRecord.disabled,
+      ...usuarioLocal?.dataValues,
+    });
+  } catch (error) {
+    console.error('Error buscando usuario:', error);
+    res.status(404).json({ error: 'Usuario no encontrado' });
+  }
+};
+
+// Eliminar usuario
+export const eliminarUsuario = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await admin.auth().deleteUser(id);
+    await usuario.destroy({ where: { uid: id } });
+
+    res.status(200).json({ 
+      type: "success",
+      mensaje: 'Usuario eliminado correctamente',
+    });
+  } catch (error) {
+    console.error('Error eliminando usuario:', error);
+    res.status(500).json({ error: 'Error eliminando usuario' });
+  }
+};
+
+// Actualizar usuario
+export const actualizarUsuario = async (req, res) => {
+  const { id } = req.params;
+  const { email, displayName, phoneNumber, disabled, direccion, rol } = req.body;
+
+  try {
+    const userRecord = await admin.auth().updateUser(id, {
+      email,
+      displayName,
+      phoneNumber,
+      disabled,
+    });
+
+    await admin.auth().setCustomUserClaims(id, { role: rol });
+
+    await usuario.update(
+      { email, nombreCompleto: displayName, telefono: phoneNumber, direccion, rol },
+      { where: { uid: id } }
+    );
+
+    res.status(200).json({
+      type: "success",
+      mensaje: 'usuario actualizado correctamente',
+      usuario: {
+        uid: userRecord.uid,
+        email: userRecord.email,
+        displayName: userRecord.displayName,
+        phoneNumber: userRecord.phoneNumber,
+        disabled: userRecord.disabled,
+      },
+    });
+  } catch (error) {
+    console.error('Error actualizando usuario:', error);
+    res.status(500).json({ error: 'Error actualizando usuario' });
+  }
+};

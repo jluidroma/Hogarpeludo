@@ -5,17 +5,17 @@ const crear = (req,res)=>{
 
     //Validar 
      if(!req.body.nombre){
-          res.status(400).send({ mensaje: "El nombre no puede estar vacio."});
+          res.status(400).send({ type: 'error',mensaje: "El nombre no puede estar vacio."});
           return;
      }
      if (!req.body.sexo) {
-          return res.status(400).send({ mensaje: "El sexo no puede estar vacío." });
+          return res.status(400).send({ type: 'error',mensaje: "El sexo no puede estar vacío." });
      }    
      if (!req.body.raza) {
-          return res.status(400).send({ mensaje: "La raza no puede estar vacía." });
+          return res.status(400).send({ type: 'error',mensaje: "La raza no puede estar vacía." });
      }
      if (!req.body.id_refugio) {
-          return res.status(400).send({ mensaje: "El id de refugio no puede estar vacía." });
+          return res.status(400).send({ type: 'error',mensaje: "El id de refugio no puede estar vacía." });
      }
      const dataset={
           nombre: req.body.nombre,
@@ -31,13 +31,13 @@ const crear = (req,res)=>{
 //Usuar Sequelize para crear el recurso en la base de datos
      mascotas.create(dataset).then((resultado)=>{
           res.status(200).json({
+               type: 'success',
                mensaje: "Registro de Mascota Creado con Exito",
-               status:200
           });
      }).catch((err)=>{
           res.status(500).json({
+               type: 'error',
                mensaje: `Registro de Mascota No creado ::: ${err}`,
-               status:500
           });
      });
 }
@@ -48,8 +48,8 @@ mascotas.findAll().then((resultado)=>{
      res.status(200).json(resultado);
 }).catch((err)=>{
      res.status(500).json({
+          type: 'error',
           mensaje:`No se encontraron registros ::: ${err}`,
-          status:500
      });
 });
 }
@@ -61,6 +61,7 @@ const buscarId= (req,res)=>{
 const id=req.params.id;
 if(id==null){
      res.status(400).json({
+          type: 'error',
           mensaje: "El id no puede estar vacio"
      });
      return;
@@ -70,6 +71,7 @@ else{
           res.status(200).json(resultado);
      }).catch((err)=>{
           res.status(500).json({
+               type: 'error',
                mensaje:`No se encontraron registros ::: ${err}`
           });
      });
@@ -85,6 +87,7 @@ const actualizar=(req,res)=>{
 const id=req.params.id;
 if(!req.body.nombre && !req.body.nombre){
      res.status(400).json({
+          type: 'error',
           mensaje: "No se encontraron Datos para Actualizar"
      });
      return;
@@ -101,13 +104,13 @@ else{
      const id_refugio = req.body.id_refugio
      mascotas.update({nombre,sexo,raza,edad,talla,imagenUrl,estado_adopcion,id_refugio},{where:{id}}).then((resultado)=>{
           res.status(200).json({
-               tipo: 'success',
+               type: 'success',
                mensaje: "Registro Actualizado"
           });
 
      }).catch((err)=>{
           res.status(500).json({
-               tipo: 'error',
+               type: 'error',
                mensaje: `Error al actualizar Registro ::: ${err}`
           });
 
@@ -124,7 +127,7 @@ const eliminar = (req, res) => {
 // Verificar si se proporcionó un ID
 if (!id) {
      return res.status(400).json({
-          tipo: "error",
+          type: "error",
           mensaje: "Debe ingresar un ID válido",
      });
 }
@@ -134,25 +137,26 @@ mascotas.destroy({ where: { id: id } })
      .then((result) => {
           if (result === 0) {
                return res.status(404).json({
-                    tipo: 'error',
+                    type: 'error',
                     mensaje: `No se encontró un registro con id ${id}`
                });
           }
 
           res.status(200).json({
-               tipo: 'success',
-               mensaje: `Registro con id ${id} eliminado correctamente`,
+               type: 'success',
+               mensaje: `Registro eliminado exitosamente!!`,
           });
      })
      .catch((err) => {
            // Verificar si es una violación de clave foránea
-          if (err.code === 'ER_ROW_IS_REFERENCED_2') {
+          if (err.name === 'SequelizeForeignKeyConstraintError') {
                return res.status(400).json({
+               type: 'error',
                message: 'No se puede eliminar esta mascota porque está siendo utilizado en otras tablas.',
                });
           }
           res.status(500).json({
-               tipo: 'error',
+               type: 'error',
                mensaje: `Error al eliminar el registro: ${err.message}`,
           });
      });

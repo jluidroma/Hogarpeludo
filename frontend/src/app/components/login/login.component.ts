@@ -37,7 +37,7 @@ export class LoginComponent {
     signInWithEmailAndPassword(this.auth, this.email, this.password)
       .then(async userCredential => {
         this.successMessage = '¡Ingreso exitoso!';
-
+        
         // Obtener el token JWT
         const token = await userCredential.user.getIdToken();
 

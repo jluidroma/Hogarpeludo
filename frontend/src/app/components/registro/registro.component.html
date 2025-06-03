@@ -4,6 +4,28 @@
       <h3>Crear Cuenta</h3>
     </div>
     <form (ngSubmit)="registrarUsuario()" #form="ngForm" class="text-box">
+      
+      <!-- Nombre Completo -->
+      <div class="form-group">
+        <label for="nombreCompleto">Nombre Completo</label>
+        <input
+          type="text"
+          id="nombreCompleto"
+          name="nombreCompleto"
+          class="form-control input-estilo"
+          placeholder="Tu nombre completo"
+          [(ngModel)]="nombreCompleto"
+          required
+          minlength="3"
+          #nombreInput="ngModel"
+          [ngClass]="{'is-invalid': nombreInput.invalid && nombreInput.touched}"
+        />
+        <div *ngIf="nombreInput.invalid && nombreInput.touched" class="error-message">
+          Por favor, ingresa tu nombre completo (mínimo 3 caracteres).
+        </div>
+      </div>
+
+      <!-- Correo Electrónico -->
       <div class="form-group">
         <label for="email">Correo Electrónico</label>
         <input
@@ -23,6 +45,7 @@
         </div>
       </div>
 
+      <!-- Contraseña -->
       <div class="form-group">
         <label for="password">Contraseña</label>
         <div class="password-container">
@@ -52,6 +75,42 @@
         </div>
       </div>
 
+      <!-- Teléfono (opcional) -->
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input
+          type="tel"
+          id="telefono"
+          name="telefono"
+          class="form-control input-estilo"
+          placeholder="Ejemplo: +57 300 1234567"
+          [(ngModel)]="telefono"
+          pattern="^[+]?[\d\s\-]{7,15}$"
+          #telefonoInput="ngModel"
+          [ngClass]="{'is-invalid': telefonoInput.invalid && telefonoInput.touched}"
+        />
+        <div *ngIf="telefonoInput.invalid && telefonoInput.touched" class="error-message">
+          Ingresa un número de teléfono válido.
+        </div>
+      </div>
+
+      <!-- Dirección (opcional) -->
+      <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <input
+          type="text"
+          id="direccion"
+          name="direccion"
+          class="form-control input-estilo"
+          placeholder="Tu dirección"
+          [(ngModel)]="direccion"
+        />
+      </div>
+
+      <!-- Rol (oculto o select si quieres que el usuario elija) -->
+      <!-- Puedes ocultarlo si siempre quieres rol 'user' -->
+      <input type="hidden" name="rol" [(ngModel)]="rol" />
+
       <div class="text-center">
         <button
           type="submit"
@@ -61,6 +120,7 @@
           Registrar
         </button>
       </div>
+
       <p class="login-link">
         ¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a>
       </p>

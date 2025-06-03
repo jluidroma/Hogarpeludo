@@ -36,7 +36,7 @@ const routerSolicitud = express.Router();
  *       400:
  *         description: Datos incorrectos o incompletos
  */
-routerSolicitud.post("/:id_mascota",verificarToken,verificarAdmin, crearSolicitud);
+routerSolicitud.post("/:id_mascota", crearSolicitud);
 
 /**
  * @swagger
@@ -48,7 +48,7 @@ routerSolicitud.post("/:id_mascota",verificarToken,verificarAdmin, crearSolicitu
  *       200:
  *         description: Lista de solicitudes obtenida correctamente
  */
-routerSolicitud.get("/", buscarSolicitud);
+routerSolicitud.get("/",verificarToken,verificarAdmin, buscarSolicitud);
 
 /**
  * @swagger

@@ -2,7 +2,7 @@
 <div>
   <div class="add-list">
     <h2 class="header-title">Nuestras Mascotas</h2>
-    <a class="btn btn-success hover-btn" [routerLink]="['/mascotas/add/']" *ngif="authService.isAdmin()">
+    <a class="btn btn-success hover-btn" [routerLink]="['/mascotas/add/']" *ngIf="authService.isAdmin()">
       <i class="bi bi-plus-circle"></i>Agregar Mascota
     </a>
   </div>
@@ -23,7 +23,7 @@
           <a class="btn btn-danger flex-grow-1 hover-btn" (click)="eliminarMascota(mascota.id)"><i class="bi bi-trash3"></i>Eliminar</a>
         </div>
     
-        <button class="btn btn-success mt-2 w-100 hover-btn" [routerLink]="['/solicitud/crearsolicitud/', mascota.id]">Adoptar</button>
+        <button class="btn btn-success mt-2 w-100 hover-btn" [routerLink]="['/solicitud/add/', mascota.id]">Adoptar</button>
       </div>
     </div>
   </div>

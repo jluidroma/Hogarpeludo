@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RefugioModel } from '../models/refugio.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,28 +21,28 @@ export class RefugioService {
     //definir los metodos para acceder a mi backend es decir al CRUD
     //trae todas los refugios de mi db
     obtenerRefugios(){
-
-        return this.http.get<RefugioModel[]>(`${this.BASE_URL}/refugios/`);
+      return this.http.get<RefugioModel[]>(`${this.BASE_URL}/refugios/`);
     }
     //buscar una refugio por id
     obtenerrefugio(idrefugio:string){
-      return this.http.get<RefugioModel>(`${this.BASE_URL}/refugios/${idrefugio}`);
+      const headers = this.getAuthHeaders();
+      return this.http.get<RefugioModel>(`${this.BASE_URL}/refugios/${idrefugio}`,{ headers });
     }
   
     //agregar una refugio
     //le pasamos como parametro un objeto refugio de tipo RefugioModel
-    agregarrefugios(refugio:RefugioModel){
+    agregarrefugios(refugio:RefugioModel):Observable<{ mensaje: string, type: string }>{
       const headers = this.getAuthHeaders();
-      return this.http.post<string>(`${this.BASE_URL}/refugios/`,refugio,{ headers})
+      return this.http.post<{ mensaje: string, type: string }>(`${this.BASE_URL}/refugios/`,refugio,{ headers})
     }
     //actualizar refugio
-    actualizarrefugio(refugio:RefugioModel){
+    actualizarrefugio(refugio:RefugioModel):Observable<{ mensaje: string, type: string }>{
       const headers = this.getAuthHeaders();
-      return this.http.put<string>(`${this.BASE_URL}/refugios/${refugio.id}`,refugio, {headers})
+      return this.http.put<{ mensaje: string, type: string }>(`${this.BASE_URL}/refugios/${refugio.id}`,refugio, {headers})
     }
     //eliminar refugio
-    eliminarrefugio(idrefugio:string){
+    eliminarrefugio(idrefugio:string):Observable<{ mensaje: string, type: string }>{
       const headers = this.getAuthHeaders();
-      return this.http.delete<string>(`${this.BASE_URL}/refugios/${idrefugio}`,{headers})
+      return this.http.delete<{ mensaje: string, type: string }>(`${this.BASE_URL}/refugios/${idrefugio}`,{headers})
     }
 }

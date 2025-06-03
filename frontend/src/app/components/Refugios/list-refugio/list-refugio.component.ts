@@ -6,6 +6,8 @@ import { RouterLink,RouterLinkActive  } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../shared/auth-service.service';
+import { NotificacionService } from '../../../shared/notificacion.service';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-list-refugio',
@@ -14,33 +16,44 @@ import { AuthService } from '../../../shared/auth-service.service';
   templateUrl: './list-refugio.component.html',
   styleUrl: './list-refugio.component.css'
 })
-export class ListRefugioComponent {
-  //IMPORTAR las mascotas creadas de nuestra base  de datos
+export class ListRefugioComponent implements OnInit {
   refugios: Observable<RefugioModel[]> | undefined;
-  
+  idRefugioPendiente: string | null = null;
 
   constructor(
     private refugioservice: RefugioService,
-    public authService: AuthService
-
+    public authService: AuthService,
+    private notiService: NotificacionService
   ) {}
 
-
   ngOnInit() {
-    //hago uso de los metodos creados en el servicio
     this.refugios = this.refugioservice.obtenerRefugios();
 
+    this.notiService.confirmacion$.subscribe(confirmado => {
+      if (confirmado && this.idRefugioPendiente) {
+        this.eliminarRefugioFinal(this.idRefugioPendiente);
+        this.idRefugioPendiente = null;
+      }
+    });
   }
 
   eliminarRefugio(id: string) {
-    //el subscribe es para el caso que todo salga bien o de que haya un error
+    this.idRefugioPendiente = id;
+    this.notiService.mostrar(
+      'warning',
+      '¿Está seguro que quiere eliminar el refugio? Esta acción no se puede deshacer.'
+    );
+  }
+
+  eliminarRefugioFinal(id: string) {
     this.refugioservice.eliminarrefugio(id).subscribe({
       next: data => {
-        console.log(`Registro Eliminado`);
-        this.ngOnInit();
+        console.log('Refugio eliminado');
+        this.notiService.mostrar(data.type, data.mensaje);
+        this.ngOnInit(); 
       },
       error: err => {
-        console.log(`Error al eliminar Registro ${err}`);
+        this.notiService.mostrar('error', "error al eliminar el registro");
       }
     });
   }

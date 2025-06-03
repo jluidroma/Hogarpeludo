@@ -40,7 +40,7 @@ routerVisitas.post("/",verificarToken,verificarAdmin,crear);
  *       200:
  *         description: Lista de visitas obtenida correctamente
  */
-routerVisitas.get("/",buscar);
+routerVisitas.get("/",verificarToken,verificarAdmin,buscar);
 
 /**
  * @swagger

@@ -36,14 +36,16 @@ export class AppComponent {
   notificacion: Notificacion | null = null;
 
   constructor(private notiService: NotificacionService) {
-    this.notiService.notificacion$.subscribe(noti => {
-      // Aseguramos que solo pasen valores válidos
-      if (['success', 'error', 'warning', 'info'].includes(noti.tipo)) {
-        this.notificacion = noti as Notificacion;
-      } else {
-        console.warn('Tipo de notificación no válido:', noti.tipo);
-      }
-    });
+  this.notiService.notificacion$.subscribe(noti => {
+  if (noti && ['success', 'error', 'warning', 'info'].includes(noti.tipo)) {
+    this.notificacion = noti as Notificacion;
+  } else if (noti === null) {
+    this.notificacion = null;
+  } else {
+    console.warn('Tipo de notificación no válido:', noti?.tipo);
+  }
+});
+
   }
 
   cerrarNoti() {

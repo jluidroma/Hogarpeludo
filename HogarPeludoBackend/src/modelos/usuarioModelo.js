@@ -1,43 +1,34 @@
-import Sequelize  from "sequelize";
-import {db} from "../database/conexion.js";
+import { DataTypes } from "sequelize";
+import { db } from "../database/conexion.js";
 
+const usuario = db.define("usuarios", {
+  uid: {
+    type: DataTypes.STRING,
+    primaryKey: true, // Usamos el UID de Firebase como clave primaria
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  nombreCompleto: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  telefono: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  direccion: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  rol: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+}, {
+  timestamps: false,
+});
 
-const usuarios = db.define("usuarios",{
-     id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          autoIncrement: true,
-          primaryKey: true  
-     },
-     nombre:{
-          type:Sequelize.STRING,
-          allowNull: true
-     },
-     apellido:{
-          type:Sequelize.STRING,
-          allowNull: true
-     },
-     email:{
-          type: Sequelize.STRING,
-          allowNull:true
-     },
-     contrasena:{
-          type: Sequelize.STRING,
-          allowNull:true
-     },
-     telefono:{
-          type:Sequelize.BIGINT(10),
-          allowNull:true
-     },
-     direccion: {
-          type: Sequelize.STRING, 
-          allowNull: true
-     },
-     rol:{
-          type:Sequelize.STRING,
-          allowNull:true,
-     }
-
-})
-
-export {usuarios}
+export { usuario };

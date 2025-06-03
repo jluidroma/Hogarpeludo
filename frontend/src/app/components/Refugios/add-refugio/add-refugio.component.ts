@@ -6,6 +6,7 @@ import { ActivatedRoute,Router  } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { FormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NotificacionService } from '../../../shared/notificacion.service';
 @Component({
   selector: 'app-add-refugio',
   standalone: true,
@@ -29,6 +30,7 @@ refugios: Observable<RefugioModel[]> | undefined;
   //pasa dos parametros al constructor  el parametro ruta me permite capturar la ruta activa en el momento
   constructor(
     private refugioService: RefugioService, private route:ActivatedRoute, private router: Router, 
+    public notiService:NotificacionService
   ){
       
   }
@@ -45,9 +47,8 @@ refugios: Observable<RefugioModel[]> | undefined;
       this.btnEnvEdit.icon="bi bi-pencil-square";
       this.refugioService.obtenerrefugio(this.id).subscribe({
         next: data=>{
-          console.log(data);
           this.refugio=data;
-          console.log(this.refugio);
+          
         },
         error: err=>{
           console.log(`Error ${err}`);
@@ -68,6 +69,7 @@ refugios: Observable<RefugioModel[]> | undefined;
         next: data=>{
           console.log(data);
           this.router.navigate(['/refugios/']);
+          this.notiService.mostrar(data.type,data.mensaje);
         },
         error: err=>{
           console.log(`Error al actualizar ${err}`);
@@ -79,6 +81,7 @@ refugios: Observable<RefugioModel[]> | undefined;
         next: data=>{
           console.log(data);
           this.router.navigate(['/refugios']);
+          this.notiService.mostrar(data.type,data.mensaje);
         },
         error: err=>{
           console.log(`Error al Agregar ${err}`);

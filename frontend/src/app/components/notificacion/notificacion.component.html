@@ -1,23 +1,24 @@
 <div class="overlay" [ngClass]="tipo">
   <div class="modal">
     <div class="header">
+      <i class="icono"
+         [ngClass]="{
+           'bi bi-check-circle-fill': tipo === 'success',
+           'bi bi-x-circle-fill': tipo === 'error',
+           'bi bi-exclamation-triangle-fill': tipo === 'warning',
+           'bi bi-info-circle-fill': tipo === 'info'
+         }">
+      </i>
       <span class="titulo">{{ tipo | titlecase }}</span>
-      <button class="cerrar" (click)="cerrar()">
-        <i class="bi bi-x-lg"></i>
-      </button>
-
     </div>
+
     <div class="contenido">
-      <i class="icono" [ngClass]="{
-        'bi bi-check-circle-fill': tipo === 'success',
-        'bi bi-x-circle-fill': tipo === 'error',
-        'bi bi-exclamation-triangle-fill': tipo === 'warning',
-        'bi bi-info-circle-fill': tipo === 'info'
-      }"></i>
       <p>{{ mensaje }}</p>
     </div>
-    <div class="acciones">
-      <button (click)="cerrar()">Aceptar</button>
+
+    <div class="acciones" *ngIf="notiService.btnAcept">
+      <button class="btn btn-aceptar" (click)="cerrar()">Aceptar</button>
+      <button class="btn btn-cancelar" (click)="cancelar()">Cancelar</button>
     </div>
   </div>
 </div>

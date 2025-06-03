@@ -23,23 +23,24 @@ export class MascotaService {
   }
 
   obtenerMascota(idMascota: string) {
-    return this.http.get<MascotaModel>(`${this.BASE_URL}/mascotas/${idMascota}`);
+    const headers = this.getAuthHeaders();
+    return this.http.get<MascotaModel>(`${this.BASE_URL}/mascotas/${idMascota}`, { headers });
   }
 
   //agregar una mascota
   //le pasamos como parametro un objeto mascota de tipo MascotaModel
-  agregarMascotas(mascota:MascotaModel):Observable<{ mensaje: string, status: number }>{
+  agregarMascotas(mascota:MascotaModel):Observable<{ mensaje: string, type: string }>{
     const headers = this.getAuthHeaders();
-    return this.http.post<{ mensaje: string, status: number }>(`${this.BASE_URL}/mascotas/`,mascota, { headers })
+    return this.http.post<{ mensaje: string, type: string }>(`${this.BASE_URL}/mascotas/`,mascota, { headers })
   }
   //actualizar mascota
-  actualizarMascota(mascota:MascotaModel):Observable<{ mensaje: string, status: number }>{
+  actualizarMascota(mascota:MascotaModel):Observable<{ mensaje: string, type: string }>{
     const headers = this.getAuthHeaders();
-    return this.http.put<{ mensaje: string, status: number }>(`${this.BASE_URL}/mascotas/${mascota.id}`,mascota, { headers })
+    return this.http.put<{ mensaje: string, type: string }>(`${this.BASE_URL}/mascotas/${mascota.id}`,mascota, { headers })
   }
   //eliminar mascota
-  eliminarMascota(idmascota:string):Observable<{ mensaje: string, status: number }>{
+  eliminarMascota(idmascota:string):Observable<{ mensaje: string, type: string }>{
     const headers = this.getAuthHeaders();
-    return this.http.delete<{ mensaje: string, status: number }>(`${this.BASE_URL}/mascotas/${idmascota}`, { headers })
+    return this.http.delete<{ mensaje: string, type: string }>(`${this.BASE_URL}/mascotas/${idmascota}`, { headers })
   }
 }

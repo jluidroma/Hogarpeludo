@@ -5,35 +5,29 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class NotificacionService {
-  private notificacionSubject = new Subject<{ tipo: string, mensaje: string }>();
-  notificacion$ = this.notificacionSubject.asObservable();
+private confirmacionSubject = new Subject<boolean>();
+private notificacionSubject = new Subject<{ tipo: string, mensaje: string } | null>();
+confirmacion$ = this.confirmacionSubject.asObservable();
+notificacion$ = this.notificacionSubject.asObservable();
 
-  mostrar(tipo: 'success' | 'error' | 'warning' | 'info', mensaje: string) {
-    this.notificacionSubject.next({ tipo, mensaje });
-  }
 
-  mostrarErrorHttp(codigo: number) {
-    switch (codigo) {
-      case 400:
-        this.mostrar('error', 'Solicitud incorrecta');
-        break;
-      case 401:
-        this.mostrar('error', 'No autorizado');
-        break;
-      case 403:
-        this.mostrar('error', 'Acceso denegado');
-        break;
-      case 404:
-        this.mostrar('warning', 'Recurso no encontrado');
-        break;
-      case 500:
-        this.mostrar('error', 'Error interno del servidor');
-        break;
-      case 200:
-        this.mostrar('success', 'Recurso creado exitosamente');
-        break;
-      default:
-        this.mostrar('error', `Error inesperado: ${codigo}`);
-    }
+//variables globales del servicio
+public btnAcept:boolean = true;
+public aceptDelet:boolean = false;
+mostrar(tipo: string, mensaje: string) {
+  this.notificacionSubject.next({ tipo, mensaje });
+  
+  if (tipo === 'success') {
+    this.btnAcept = false;
+    setTimeout(() => {
+      this.notificacionSubject.next(null);
+    }, 3000);
+  }else if(tipo === 'warning'){
+    this.btnAcept = true;
   }
+}
+
+confirmarEliminacion() {
+  this.confirmacionSubject.next(true);
+}
 }

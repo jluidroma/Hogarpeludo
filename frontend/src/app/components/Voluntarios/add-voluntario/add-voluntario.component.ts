@@ -8,6 +8,7 @@ import { ActivatedRoute,Router  } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { NotificacionService } from '../../../shared/notificacion.service';
 
 @Component({
   selector: 'app-add-voluntario',
@@ -34,6 +35,7 @@ export class AddVoluntarioComponent {
     constructor(
       private voluntarioService: VoluntarioService, private route:ActivatedRoute, private router: Router,
       private refugioService: RefugioService, 
+      private notiService: NotificacionService
     ){
         
     }
@@ -73,6 +75,7 @@ export class AddVoluntarioComponent {
           next: data=>{
             console.log(data);
             this.router.navigate(['/voluntarios/']);
+            this.notiService.mostrar(data.type, data.mensaje);
           },
           error: err=>{
             console.log(`Error al actualizar ${err}`);
@@ -82,8 +85,8 @@ export class AddVoluntarioComponent {
       else{
         this.voluntarioService.agregarVoluntario(this.voluntario).subscribe({
           next: data=>{
-            console.log(data);
             this.router.navigate(['/voluntarios']);
+            this.notiService.mostrar(data.type, data.mensaje);
           },
           error: err=>{
             console.log(`Error al Agregar ${err}`);

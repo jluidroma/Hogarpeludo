@@ -11,7 +11,8 @@
         <li *ngIf="authService.isAdmin()"><a href="/mascotas">solicitudes</a></li>
         <li *ngIf="authService.isAdmin()"><a href="/visitas">visitas</a></li>
         <li><a href="/voluntarios">voluntarios</a></li>
-        <li><a href="/refugios">refugios</a></li>
+        <li ><a href="/refugios">refugios</a></li>
+        <li *ngIf="authService.isAdmin()"><a href="/usuarios">Usuarios</a></li>
         <li><a href="/registro" class="btn">Regístrate</a></li>
         <li><a href="/login" class="btn">Ingresar</a></li>
       </ul>
